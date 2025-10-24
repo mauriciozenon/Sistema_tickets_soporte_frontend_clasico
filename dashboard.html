@@ -27,5 +27,29 @@
       window.location.href = 'index.html';
     });
   </script>
+
+  <div class="dashboard-container">
+    <h1>Bienvenido, <span id="usuario-nombre">Usuario</span></h1>
+    <p>Estos son tus tickets:</p>
+
+    <div class="ticket-actions">
+      <button id="btn-nuevo-ticket">Crear nuevo ticket</button>
+      <select id="filtro-estado">
+        <option value="">Todos los estados</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="trabajando">Trabajando</option>
+        <option value="cerrado">Cerrado</option>
+      </select>
+    </div>
+
+    <div id="tickets-list" class="tickets-list">
+      <!-- Aquí se renderizan los tickets -->
+    </div>
+  </div>
+
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/tickets.js"></script>
+
+
 </body>
 </html>
