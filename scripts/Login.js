@@ -28,23 +28,22 @@ if (loginForm) {
     const password = document.getElementById('password').value;
 
     try {
-      const res = await fetch('http://localhost:3000/api/auth/login', {
+      $.ajax({
+        async: true,
+        url: 'http://localhost:3000/api/auth/login',
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        contentType: 'application/json',
+        data: JSON.stringify({ email, password }),
+        success: function(data, textStatus, jqXHR) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('usuario', JSON.stringify(data.usuario))
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          errorEl.textContent = jqXHR.responseJSON?.error || 'Credenciales inválidas';
+        }
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        errorEl.textContent = data.error || 'Credenciales inválidas';
-        return;
-      }
-
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('usuario', JSON.stringify(data.usuario));
-
-      window.location.href = data.usuario.rol === 'administrador'
+      const usuario = window.JSON.parse(localStorage.getItem('usuario'));
+      window.location.href = usuario.rol === 'administrador'
         ? 'dashboard.html'
         : 'tickets.html';
     } catch (err) {
