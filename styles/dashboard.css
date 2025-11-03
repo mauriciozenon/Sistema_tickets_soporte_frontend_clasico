@@ -1,0 +1,263 @@
+/* ----------------------------- */
+/* Estilo general */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f6f7fb;
+  color: #333;
+}
+
+/* ----------------------------- */
+/* Barra superior */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+header {
+  background: linear-gradient(90deg, #5b2be0, #b845f5);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header .user-info span {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+header button {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+header button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Tarjetas de estado */
+.status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.card span {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.card.total { border-left: 6px solid #7a37e5; }
+.card.pendiente { border-left: 6px solid #ffb400; background-color: #fff8e1; }
+.card.proceso { border-left: 6px solid #1d8cf8; background-color: #e8f4ff; }
+.card.cerrado { border-left: 6px solid #00c292; background-color: #e9fff6; }
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* ----------------------------- */
+/* Filtros */
+.filters {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.filters h3 {
+  color: #5b2be0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filter-group button {
+  background: linear-gradient(90deg, #5b2be0, #b845f5);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-group button:hover {
+  opacity: 0.85;
+}
+
+/* ----------------------------- */
+/* Lista de tickets */
+.tickets {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.tickets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.tickets-header h3 {
+  color: #5b2be0;
+  font-weight: 600;
+}
+
+.tickets-header button {
+  background: linear-gradient(90deg, #5b2be0, #b845f5);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tickets-header button:hover {
+  opacity: 0.85;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  background-color: #f5f5f5;
+}
+
+th, td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+tbody tr:hover {
+  background-color: #fafafa;
+}
+
+/* Estados */
+.estado {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.estado.pendiente { background-color: #fff3cd; color: #856404; }
+.estado.proceso { background-color: #e3f2fd; color: #1976d2; }
+.estado.cerrado { background-color: #d4edda; color: #155724; }
+
+/* Botones tabla */
+.btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin-right: 0.3rem;
+}
+
+.btn.editar { background-color: #4b7bec; }
+.btn.reabrir { background-color: #ffa502; }
+.btn.cerrar { background-color: #2ed573; }
+.btn:hover { opacity: 0.9; }
+button:hover {
+  background-color: #2563eb;
+}
+
+.cerrar.section {
+  background: linear-gradient(90deg, #5b2be0, #b845f5);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cerrar.section:hover {
+  opacity: 0.85;
+}
+
+.nuevo.ticket {
+  background: linear-gradient(90deg, #5b2be0, #b845f5);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nuevo.ticket:hover {
+  opacity: 0.85;
+}

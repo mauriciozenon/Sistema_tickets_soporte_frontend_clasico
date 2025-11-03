@@ -1,55 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Gestión de Tickets</title>
+  <link rel="stylesheet" href="styles/dashboard.css" />
 </head>
 <body>
-  <div class="dashboard-container">
-    <h1>Dashboard</h1>
-    <p>Bienvenido, <span id="usuarioEmail"></span>!</p>
-    <p>Tu rol es: <span id="usuarioRol"></span></p>
-    <button id="logoutBtn">Cerrar sesión</button>
+  <div class="dashboard">
+
+    <header>
+      <h1>🧾 Sistema de Gestión de Tickets</h1>
+      <div class="user-info">
+        <span>Bienvenido, <strong>Juan Pérez</strong></span>
+        <span>Administrador</span>
+        <a href="index.html" class="cerrar section">Cerrar Sesión</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="status">
+        <div class="card total">Total Tickets<br><span>5</span></div>
+        <div class="card pendiente">Pendientes<br><span>2</span></div>
+        <div class="card proceso">Procesados<br><span>1</span></div>
+        <div class="card cerrado">Cerrados<br><span>2</span></div>
+      </section>
+
+      <section class="filters">
+        <h3>Filtros de Búsqueda</h3>
+        <div class="filter-group">
+          <input type="text" placeholder="Id del ticket" />
+          <input type="text" placeholder="Id del usuario" />
+          <select>
+            <option>Todos los roles</option>
+            <option>Administrador</option>
+            <option>Cliente</option>
+          </select>
+          <select>
+            <option>Todos los estados</option>
+            <option>Pendiente</option>
+            <option>Procesado</option>
+            <option>Cerrado</option>
+          </select>
+          <button>Buscar</button>
+        </div>
+      </section>
+
+      <section class="tickets">
+        <div class="tickets-header">
+          <h3>Lista de Tickets</h3>
+          <a href="crearTicket.html" class="nuevo ticket">+ Nuevo Ticket</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="ticketsBody">
+            <!-- Tickets renderizados -->
+          </tbody>
+        </table>
+      </section>
+    </main>
   </div>
-  <script>
-    const token = localStorage.getItem('token');
-    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
 
-    if (!token) window.location.href = 'index.html';
-
-    document.getElementById('usuarioEmail').textContent = usuario.email;
-    document.getElementById('usuarioRol').textContent = usuario.rol;
-
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.clear();
-      window.location.href = 'index.html';
-    });
-  </script>
-
-  <div class="dashboard-container">
-    <h1>Bienvenido, <span id="usuario-nombre">Usuario</span></h1>
-    <p>Estos son tus tickets:</p>
-
-    <div class="ticket-actions">
-      <button id="btn-nuevo-ticket">Crear nuevo ticket</button>
-      <select id="filtro-estado">
-        <option value="">Todos los estados</option>
-        <option value="pendiente">Pendiente</option>
-        <option value="trabajando">Trabajando</option>
-        <option value="cerrado">Cerrado</option>
-      </select>
-    </div>
-
-    <div id="tickets-list" class="tickets-list">
-      <!-- Aquí se renderizan los tickets -->
-    </div>
-  </div>
-
-  <script src="scripts/auth.js"></script>
-  <script src="scripts/tickets.js"></script>
-
-
+  <script src="scripts/dashboard.js"></script>
 </body>
 </html>
