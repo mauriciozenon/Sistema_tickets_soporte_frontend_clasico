@@ -261,3 +261,21 @@ button:hover {
 .nuevo.ticket:hover {
   opacity: 0.85;
 }
+
+.estado.pendiente {
+  background-color: #fde68a;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.estado.trabajando {
+  background-color: #bfdbfe;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.estado.cerrado {
+  background-color: #bbf7d0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}

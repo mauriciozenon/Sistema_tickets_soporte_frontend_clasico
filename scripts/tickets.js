@@ -96,8 +96,12 @@ export const cambiarEstado = async (id_ticket, nuevoEstado) => {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ estado: nuevoEstado })
+    
   });
+  
 
   const data = await res.json();
   return data;
 };
+
+   

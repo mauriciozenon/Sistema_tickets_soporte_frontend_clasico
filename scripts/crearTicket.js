@@ -48,3 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.getElementById('volver').addEventListener('click', () => {
+  window.location.href = 'dashboard.html';
+});
