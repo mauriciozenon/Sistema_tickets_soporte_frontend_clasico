@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistema de Gestión de Tickets</title>
   <link rel="stylesheet" href="styles/dashboard.css" />
+  <link rel="stylesheet" href="styles/modal.css" />
 </head>
+
 <body>
   <div class="dashboard">
 
     <header>
       <h1>🧾 Sistema de Gestión de Tickets</h1>
       <div class="user-info">
-           <span>Bienvenido, <strong id="nombre-usuario"></strong></span>
-            <span id="rol-usuario" style="margin-left: 5px; font-weight: bold;"></span>
+        <span>Bienvenido, <strong id="nombre-usuario"></strong></span>
+        <span id="rol-usuario" style="margin-left: 5px; font-weight: bold;"></span>
         <a href="index.html" class="cerrar section">Cerrar Sesión</a>
       </div>
     </header>
@@ -29,27 +32,22 @@
       <section class="filters">
         <h3>Filtros de Búsqueda</h3>
         <div class="filter-group">
-          <input type="text" placeholder="Id del ticket" />
-          <input type="text" placeholder="Id del usuario" />
-          <select>
-            <option>Todos los roles</option>
-            <option>Administrador</option>
-            <option>Cliente</option>
+          <input id="filterIdTicket" type="text" placeholder="Id del ticket" />
+          <input id="filterIdUsuario" type="text" placeholder="Id del usuario" />
+          <select id="filterEstado">
+            <option value="0">Todos los estados</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="trabajando">En proceso</option>
+            <option value="cerrado">Cerrado</option>
           </select>
-          <select>
-            <option>Todos los estados</option>
-            <option>Pendiente</option>
-            <option>Procesado</option>
-            <option>Cerrado</option>
-          </select>
-          <button>Buscar</button>
+          <button id="btnBuscar">Buscar</button>
         </div>
       </section>
 
       <section class="tickets">
         <div class="tickets-header">
           <h3>Lista de Tickets</h3>
-          <a href="crearTicket.html" class="nuevo ticket">+ Nuevo Ticket</a>
+          <button id="btnCrearTicket">+ Nuevo Ticket</button>
         </div>
         <table>
           <thead>
@@ -69,7 +67,51 @@
       </section>
     </main>
   </div>
+  <div class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h2>Crear nuevo ticket</h2>
+      <form id="ticketForm">
+        <input type="hidden" id="idTicket" />
+        <label for="asunto">Asunto:</label>
+        <input type="text" id="asunto" required />
 
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" rows="4" required></textarea>
+
+        <label for="prioridad">Prioridad:</label>
+        <select id="prioridad" required>
+          <option value="" disabled selected>Seleccioná una prioridad</option>
+          <option value="baja">Baja</option>
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+        </select>
+        <select id="estado" style="display: none;">
+          <option value="0">Todos los estados</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="trabajando">En proceso</option>
+          <option value="cerrado">Cerrado</option>
+        </select>
+
+        <button type="submit" class="btn enviar">Enviar ticket</button>
+        <button type="button" id="volver" class="btn volver">Volver</button>
+      </form>
+      <p id="error" class="error"></p>
+    </div>
+  </div>
+
+
+  <div id="modal-confirmacion" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h2>Confirme la accion</h2>
+      <p>¿Está seguro que desea eliminar este ticket?</p>
+      <button id="btnConfirmar" class="btn eliminar">Eliminar</button>
+      <button id="btnCancelar" class="btn cancelar">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="lib/jquery/jquery-3.7.1.min.js"></script>
   <script src="scripts/dashboard.js"></script>
+  <script src="scripts/crearTicket.js"></script>
 </body>
+
 </html>

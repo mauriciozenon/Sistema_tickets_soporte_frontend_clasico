@@ -166,7 +166,7 @@ main {
   font-weight: 600;
 }
 
-.tickets-header button {
+.tickets-header button{
   background: linear-gradient(90deg, #5b2be0, #b845f5);
   color: white;
   border: none;
@@ -175,6 +175,22 @@ main {
   cursor: pointer;
   transition: 0.3s;
 }
+tbody tr button {
+  background-color:  #360cac;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+tbody tr button.btn-eliminar{
+  background-color: #e74c3c;
+} 
+tbody tr button.btn-eliminar:hover{
+  background-color:  #c0392b;
+} 
+
 
 .tickets-header button:hover {
   opacity: 0.85;

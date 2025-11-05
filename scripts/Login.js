@@ -34,18 +34,19 @@ if (loginForm) {
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ email, password }),
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('usuario', JSON.stringify(data.usuario))
+          const usuario = window.JSON.parse(localStorage.getItem('usuario'));
+          window.location.href = usuario.rol === 'administrador'
+            ? 'dashboard.html'
+            : 'tickets.html';
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
           errorEl.textContent = jqXHR.responseJSON?.error || 'Credenciales inválidas';
         }
       });
-      const usuario = window.JSON.parse(localStorage.getItem('usuario'));
-      window.location.href = usuario.rol === 'administrador'
-        ? 'dashboard.html'
-        : 'tickets.html';
+
     } catch (err) {
       console.error('Error de red:', err);
       errorEl.textContent = 'No se pudo conectar con el servidor.';
