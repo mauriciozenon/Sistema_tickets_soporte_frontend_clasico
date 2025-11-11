@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const idTicket = document.getElementById('idTicket').value;
       const estado = document.getElementById('estado').value;
       let res = null;
+      let message = '';
       if (idTicket) {
+        message = 'Ticket actualizado con éxito';
         res = await fetch(`${API_BASE}/tickets/${idTicket}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },          
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         });
       } else {
+        message = 'Ticket creado con éxito';
         res = await fetch(`${API_BASE}/tickets`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -52,10 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
 
       if (!res.ok) {
-        errorEl.textContent = data.error || 'Error al crear el ticket.';
+        showToast('Error al crear o actualizar el ticket.', 'error');
+        // errorEl.textContent = data.error || 'Error al crear el ticket.';
         return;
       }
-
+      showToast(message, 'success');
       $('.modal-overlay').fadeOut(300, () => {
          $('#estado').hide();
         search();
@@ -73,9 +77,13 @@ document.getElementById('volver').addEventListener('click', () => {
 });
 
 document.getElementById('btnCrearTicket').addEventListener('click', () => {
+  $('.modal-overlay').find('input, textarea').val('').prop('disabled', false);
+  $('#prioridad').val('');
+
   $('.modal-overlay').fadeIn();
 
 });
+
 
 async function abrirModalEdicion(data) {
   $('#asunto').prop('disabled', true).val(data.asunto);

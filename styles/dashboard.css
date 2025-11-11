@@ -215,7 +215,16 @@ th, td {
 tbody tr:hover {
   background-color: #fafafa;
 }
-
+.prioridad {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 550;
+}
+.prioridad.baja { background-color: #24cd17; color: #000000 }
+.prioridad.media { background-color: #ffcd05; color: #0c0c0c; }
+.prioridad.alta { background-color: #ff0000; color: #ebe1e1; }
 /* Estados */
 .estado {
   display: inline-block;

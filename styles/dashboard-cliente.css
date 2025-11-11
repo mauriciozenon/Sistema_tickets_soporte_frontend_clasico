@@ -1,0 +1,288 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f6f7fb;
+      color: #333;
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    header {
+      background: linear-gradient(90deg, #5b2be0, #b845f5);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    header .user-info span {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    .btn-logout {
+      background-color: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-logout:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      padding: 1.5rem;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .card span {
+      display: block;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    .card.total { border-left: 6px solid #7a37e5; }
+    .card.pendiente { border-left: 6px solid #ffb400; background-color: #fff8e1; }
+    .card.proceso { border-left: 6px solid #1d8cf8; background-color: #e8f4ff; }
+    .card.cerrado { border-left: 6px solid #00c292; background-color: #e9fff6; }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .tickets {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .tickets-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .tickets-header h3 {
+      color: #5b2be0;
+      font-weight: 600;
+    }
+
+    .btn-new {
+      background: linear-gradient(90deg, #5b2be0, #b845f5);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-new:hover {
+      opacity: 0.85;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    thead {
+      background-color: #f5f5f5;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+
+    tbody tr:hover {
+      background-color: #fafafa;
+    }
+
+    .prioridad {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 550;
+    }
+
+    .prioridad.baja { background-color: #24cd17; color: #000000; }
+    .prioridad.media { background-color: #ffcd05; color: #0c0c0c; }
+    .prioridad.alta { background-color: #ff0000; color: #ebe1e1; }
+
+    .estado {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .estado.pendiente { background-color: #fff3cd; color: #856404; }
+    .estado.trabajando { background-color: #e3f2fd; color: #1976d2; }
+    .estado.cerrado { background-color: #d4edda; color: #155724; }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+      z-index: 1000;
+    }
+
+    .toast.success {
+      border-left: 4px solid #00c292;
+    }
+
+    .toast.error {
+      border-left: 4px solid #e74c3c;
+    }
+
+    .toast.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+    }
+
+    .empty-state svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    #toast-container {
+  position: fixed;
+  top: 5rem;
+  right: 2.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.toast {
+  position: relative;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  opacity: 0;
+  min-width: 240px;
+  animation: fadein 0.3s ease forwards;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.toast .close-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.toast .close-btn:hover {
+  color: #ddd;
+}
+
+.toast::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: rgba(255,255,255,0.3);
+  animation: progressBar 3s linear forwards;
+}
+
+@keyframes progressBar {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 0.95; transform: translateY(0); }
+}
+
+.toast.success { background-color: #259729; }
+.toast.error { background-color: #f44336; }
+.toast.warning { background-color: #ff9800; }
+.toast.info { background-color: #2196f3; }

@@ -4,71 +4,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sistema de Gestión de Tickets</title>
+  <title>Mis Tickets - Cliente</title>
   <link rel="stylesheet" href="styles/utils.css" />
-  <link rel="stylesheet" href="styles/dashboard.css" />
+  <link rel="stylesheet" href="styles/dashboard-cliente.css" />
   <link rel="stylesheet" href="styles/modal.css" />
+
 </head>
 
 <body>
   <div class="dashboard">
-
     <header>
-      <h1>🧾 Sistema de Gestión de Tickets</h1>
+      <h1>🧾 Mis Tickets de Soporte</h1>
       <div class="user-info">
-        <span>Bienvenido, <strong id="nombre-usuario"></strong></span>
-        <span id="rol-usuario" style="margin-left: 5px; font-weight: bold;"></span>
-        <a href="index.html" class="cerrar section">Cerrar Sesión</a>
+        <span>Bienvenido, <strong id="nombre-usuario">Cliente</strong></span>
+        <span id="rol-usuario" style="font-weight: bold;">Cliente</span>
+        <a href="index.html" class="btn-logout">Cerrar Sesión</a>
       </div>
     </header>
 
-    <main class="main">
+    <main>
       <section class="status">
-        <div class="card total">Total Tickets<br><span>5</span></div>
-        <div class="card pendiente">Pendientes<br><span>2</span></div>
-        <div class="card proceso">Procesados<br><span>1</span></div>
-        <div class="card cerrado">Cerrados<br><span>2</span></div>
-      </section>
-
-      <section class="filters">
-        <h3>Filtros de Búsqueda</h3>
-        <div class="filter-group">
-          <input id="filterIdTicket" type="text" placeholder="Id del ticket" />
-          <input id="filterIdUsuario" type="text" placeholder="Id del usuario" />
-          <select id="filterEstado">
-            <option value="0">Todos los estados</option>
-            <option value="pendiente">Pendiente</option>
-            <option value="trabajando">En proceso</option>
-            <option value="cerrado">Cerrado</option>
-          </select>
-          <button id="btnBuscar">Buscar</button>
-        </div>
+        <div class="card total">Total Tickets<br><span id="total-tickets">0</span></div>
+        <div class="card pendiente">Pendientes<br><span id="pendientes">0</span></div>
+        <div class="card proceso">En Proceso<br><span id="proceso">0</span></div>
+        <div class="card cerrado">Cerrados<br><span id="cerrados">0</span></div>
       </section>
 
       <section class="tickets">
         <div class="tickets-header">
-          <h3>Lista de Tickets</h3>
-          <button id="btnCrearTicket">+ Nuevo Ticket</button>
+          <h3>Historial de Tickets</h3>
+          <button class="btn-new" id="btnCrearTicket">+ Nuevo Ticket</button>
+        </div>
+        <div class="paginado-header">
+          <label for="limitSelect">Tickets por página:</label>
+          <select id="limitSelect">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Fecha</th>
-              <th>Usuario</th>
-              <th>Título</th>
+              <th>Fecha/Hora</th>
+              <th>Asunto</th>
               <th>Descripción</th>
               <th>Prioridad</th>
               <th>Estado</th>
-              <th>Acción</th>
             </tr>
           </thead>
           <tbody id="ticketsBody">
-            <!-- Tickets renderizados -->
+            <tr>
+              <td colspan="5" class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                  </path>
+                </svg>
+                <p>Cargando tickets...</p>
+              </td>
+            </tr>
           </tbody>
         </table>
+          <div id="pagination" class="pagination"></div>
       </section>
     </main>
   </div>
+
   <div class="modal-overlay" style="display: none;">
     <div class="modal-content">
       <h2>Crear nuevo ticket</h2>
@@ -101,22 +103,14 @@
     </div>
   </div>
 
-
-  <div id="modal-confirmacion" class="modal-confirmacion" style="display: none;">
-    <div class="modal-content">
-      <h2>Confirme la accion</h2>
-      <p>¿Está seguro que desea eliminar este ticket?</p>
-      <button id="btnConfirmar" class="btn eliminar">Eliminar</button>
-      <button id="btnCancelar" class="btn cancelar">Cancelar</button>
-    </div>
   </div>
-
   <div id="toast-container"></div>
 
   <script src="lib/jquery/jquery-3.7.1.min.js"></script>
-  <script src="scripts/dashboard.js"></script>
-  <script src="scripts/crearTicket.js"></script>
   <script src="scripts/utils.js"></script>
+  <script src="scripts/crearTicket.js"></script>
+  <script src="scripts/dashboard-cliente.js"></script>
+
 </body>
 
 </html>

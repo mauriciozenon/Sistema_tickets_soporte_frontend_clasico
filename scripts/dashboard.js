@@ -87,6 +87,7 @@ function renderTickets(tickets) {
       <td>${ticket.id_usuario}</td>
       <td>${ticket.asunto}</td>
       <td>${ticket.descripcion}</td>
+      <td><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
       <td><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
       <td>
         <button class="btn-editar">Editar</button>
@@ -108,8 +109,8 @@ $(document).on('click', '.btn-editar', async function (evento) {
 });
 
 $(document).on('click', '.btn-eliminar', async function (evento) {
+  $('#modal-confirmacion').data('idTicket', $(this).closest('tr').data('idTicket'));
   $('#modal-confirmacion').fadeIn();
-  
 });
 $(document).on('click', '#btnConfirmar', async function () {
   const idTicket = $(this).closest('#modal-confirmacion').data('idTicket');
@@ -123,6 +124,7 @@ $(document).on('click', '#btnConfirmar', async function () {
       return;
     }
     $('#modal-confirmacion').fadeOut();
+    showToast('Ticket eliminado con éxito', 'success');
     search();
   } catch (err) {
     alert('No se pudo conectar con el servidor.');

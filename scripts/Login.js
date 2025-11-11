@@ -1,4 +1,4 @@
-// ---------------- LOGIN / REGISTER ----------------
+// ---------------- LOGIN ----------------
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const errorEl = document.getElementById('error');
@@ -35,13 +35,23 @@ if (loginForm) {
         contentType: 'application/json',
         data: JSON.stringify({ email, password }),
         success: function (data, textStatus, jqXHR) {
+          // Si el backend no envía "usuario", lo construimos manualmente
+          const usuario = data.usuario || {
+            id_usuario: data.id_usuario,
+            nombre: data.nombre,
+            rol: data.rol
+          };
+
+          // Guardamos en localStorage
           localStorage.setItem('token', data.token);
-          localStorage.setItem('usuario', JSON.stringify(data.usuario))
-          const usuario = window.JSON.parse(localStorage.getItem('usuario'));
+          localStorage.setItem('usuario', JSON.stringify(usuario));
+
+          // Redirección según rol
           window.location.href = usuario.rol === 'administrador'
             ? 'dashboard.html'
-            : 'tickets.html';
+            : 'dashboard-cliente.html';
         },
+
         error: function (jqXHR, textStatus, errorThrown) {
           errorEl.textContent = jqXHR.responseJSON?.error || 'Credenciales inválidas';
         }
