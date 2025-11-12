@@ -1,9 +1,12 @@
+var usuario = null;
 const API_BASE = 'http://localhost:3000/api';
 const ticketsBody = document.getElementById('ticketsBody');
-var usuario = null;
-document.getElementById('btnBuscar').addEventListener('click', async () => {
-  search();
-});
+
+if ($('#btnBuscar').length) {
+  document.getElementById('btnBuscar').addEventListener('click', async () => {
+    searchTickets();
+  });
+}
 document.addEventListener('DOMContentLoaded', () => {
   usuario = JSON.parse(localStorage.getItem('usuario'));
 
@@ -32,46 +35,29 @@ function actualizarResumen(tickets) {
 }
 async function cargarTickets() {
   try {
-    await search();
+    await searchTickets();
   } catch (error) {
     console.error('Error al cargar tickets:', error);
     ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
   }
 }
-async function search() {
+async function searchTickets() {
   try {
-    let url = `${API_BASE}/tickets?`;
-
-    if (usuario.rol === 'cliente') {
-      url += `?id_usuario=${usuario.id_usuario}`;
+    let filtros = await construirFiltros('tickets');
+    const data = await getAsync('tickets', (filtros ? filtros : null));
+    if (!data || !data.tickets) {
+      ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
+      return;
     }
-
-    let filtros = await construirFiltros();
-    url += filtros;
-    const res = await fetch(`${url}`);
-    const data = await res.json();
     renderTickets(data.tickets);
     actualizarResumen(data.tickets);
   } catch (error) {
     console.error('Error al buscar tickets:', error);
     ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
-   }
+  }
 
 }
-async function construirFiltros() {
-  let query = '';
 
-  const idTicket = $('#filterIdTicket').val().trim();
-  if (idTicket) query += `&id_ticket=${idTicket}`;
-
-  const idUsuario = $('#filterIdUsuario').val().trim();
-  if (idUsuario) query += `&id_usuario=${idUsuario}`;
-
-  const estado = $('#filterEstado').val();
-  if (estado && estado !== '0') query += `&estado=${estado}`;
-
-  return query;
-}
 function renderTickets(tickets) {
   ticketsBody.innerHTML = '';
 
@@ -82,7 +68,9 @@ function renderTickets(tickets) {
 
   tickets.forEach(ticket => {
     const row = document.createElement('tr');
-    row.innerHTML = `
+
+    if (usuario.rol === 'administrador') {
+      row.innerHTML = `
       <td>${new Date(ticket.fecha_hora).toLocaleString()}</td>
       <td>${ticket.id_usuario}</td>
       <td>${ticket.asunto}</td>
@@ -94,7 +82,16 @@ function renderTickets(tickets) {
         <button class="btn-eliminar">Eliminar</button>
       </td>
     `;
-
+    }
+    else {
+      row.innerHTML = `
+      <td>${new Date(ticket.fecha_hora).toLocaleString()}</td>
+      <td>${ticket.asunto}</td>
+      <td>${ticket.descripcion}</td>
+      <td><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
+      <td><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
+    `;
+    }
     $(row).data('idTicket', ticket.id_ticket);
     ticketsBody.appendChild(row);
   });
@@ -125,7 +122,7 @@ $(document).on('click', '#btnConfirmar', async function () {
     }
     $('#modal-confirmacion').fadeOut();
     showToast('Ticket eliminado con éxito', 'success');
-    search();
+    searchTickets();
   } catch (err) {
     alert('No se pudo conectar con el servidor.');
   }
@@ -136,9 +133,8 @@ $(document).on('click', '#btnCancelar', function () {
 
 async function getTicketDetails(idTicket) {
   try {
-    const res = await fetch(`${API_BASE}/tickets/${idTicket}`);
-    const data = await res.json();
-    if (!res.ok) {
+    const data = await getAsync('tickets/' + idTicket);
+    if (!data) {
       alert(data.error || 'Error al obtener detalles del ticket.');
       return null;
     }

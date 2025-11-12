@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Guardar usuario en localStorage (opcional)
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-      // Redirigir al dashboard
-      window.location.href = 'dashboard.html';
+      window.location.href = data.usuario.rol === 'administrador'
+        ? 'dashboard.html'
+        : 'dashboard-cliente.html';
     } catch (err) {
       console.error('Error de red:', err);
       errorMsg.textContent = 'No se pudo conectar con el servidor.';

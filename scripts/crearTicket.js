@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast(message, 'success');
       $('.modal-overlay').fadeOut(300, () => {
          $('#estado').hide();
-        search();
+        searchTickets();
       });
     } catch (err) {
       errorEl.textContent = 'No se pudo conectar con el servidor.';
