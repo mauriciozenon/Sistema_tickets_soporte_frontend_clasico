@@ -286,3 +286,11 @@
 .toast.error { background-color: #f44336; }
 .toast.warning { background-color: #ff9800; }
 .toast.info { background-color: #2196f3; }
+.truncado {
+  max-width: 200px; /* ajustá según tu diseño */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
+}

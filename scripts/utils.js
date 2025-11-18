@@ -25,17 +25,24 @@ async function construirFiltros(entidad) {
     switch (entidad) {
       case 'tickets':
         if (usuario.rol === 'administrador') {
-          const idTicket = $('#filterIdTicket').val().trim();
-          if (idTicket) query += `&id_ticket=${idTicket}`;
-
+          // Filtro por Id de usuario
           const idUsuario = $('#filterIdUsuario').val().trim();
           if (idUsuario) query += `&id_usuario=${idUsuario}`;
-
+          // Filtro por prioridad
+          const prioridad = $('#filterPrioridad').val();
+          if (prioridad && prioridad !== '0') query += `&prioridad=${prioridad}`;
+          
+          // Filtro por estado
           const estado = $('#filterEstado').val();
           if (estado && estado !== '0') query += `&estado=${estado}`;
         } else {
           if (usuario.id_usuario) query += `&id_usuario=${usuario.id_usuario}`;
         }
+        // Si sos cliente, filtramos por tu propio ID
+        if (usuario.rol === 'cliente') {
+          filtros.id_usuario = usuario.id_usuario;
+        }
+
         break;
       default:
         break;

@@ -2,6 +2,16 @@ var usuario = null;
 const API_BASE = 'http://localhost:3000/api';
 const ticketsBody = document.getElementById('ticketsBody');
 
+document.getElementById('filterPrioridad')?.addEventListener('change', () => {
+  searchTickets();
+});
+document.getElementById('filterEstado')?.addEventListener('change', () => {
+  searchTickets();
+});
+document.getElementById('filterIdUsuario')?.addEventListener('input', () => {
+  searchTickets();
+});
+
 if ($('#btnBuscar').length) {
   document.getElementById('btnBuscar').addEventListener('click', async () => {
     searchTickets();
@@ -49,12 +59,21 @@ async function searchTickets() {
       ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
       return;
     }
+
+    if (!data || !data.tickets) {
+      ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
+      return;
+    }
+
+
+
     renderTickets(data.tickets);
     actualizarResumen(data.tickets);
   } catch (error) {
     console.error('Error al buscar tickets:', error);
     ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
   }
+
 
 }
 
@@ -73,8 +92,9 @@ function renderTickets(tickets) {
       row.innerHTML = `
       <td>${new Date(ticket.fecha_hora).toLocaleString()}</td>
       <td>${ticket.id_usuario}</td>
-      <td>${ticket.asunto}</td>
-      <td>${ticket.descripcion}</td>
+      <td>${ticket.nombre}</td>
+      <td><span class="truncado">${ticket.asunto}</span></td>
+      <td><span class="truncado">${ticket.descripcion}</span></td>
       <td><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
       <td><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
       <td>

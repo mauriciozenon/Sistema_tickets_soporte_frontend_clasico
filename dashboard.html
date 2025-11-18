@@ -33,8 +33,13 @@
       <section class="filters">
         <h3>Filtros de Búsqueda</h3>
         <div class="filter-group">
-          <input id="filterIdTicket" type="text" placeholder="Id del ticket" />
           <input id="filterIdUsuario" type="text" placeholder="Id del usuario" />
+           <select id="filterPrioridad">
+            <option value="0">Todas las Prioridades</option>
+            <option value="baja">Prioridad Baja</option>
+            <option value="media">Prioridad Media</option>
+            <option value="alta">Prioridad Alta</option>
+          </select>
           <select id="filterEstado">
             <option value="0">Todos los estados</option>
             <option value="pendiente">Pendiente</option>
@@ -54,7 +59,8 @@
           <thead>
             <tr>
               <th>Fecha</th>
-              <th>Usuario</th>
+              <th>Numero-usuario</th>
+              <th>nombre-usuario</th>
               <th>Título</th>
               <th>Descripción</th>
               <th>Prioridad</th>

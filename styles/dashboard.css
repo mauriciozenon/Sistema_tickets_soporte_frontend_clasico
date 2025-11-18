@@ -304,3 +304,12 @@ button:hover {
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
 }
+
+.truncado {
+  max-width: 200px; /* ajustá según tu diseño */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
+}
