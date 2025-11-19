@@ -91,17 +91,4 @@ function renderTickets(tickets) {
 }
 
 
-export const cambiarEstado = async (id_ticket, nuevoEstado) => {
-  const res = await fetch(`${API_BASE}/tickets/${id_ticket}/estado`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ estado: nuevoEstado })
-    
-  });
-  
-
-  const data = await res.json();
-  return data;
-};
-
    

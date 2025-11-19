@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       showToast(message, 'success');
-      $('.modal-overlay').fadeOut(300, () => {
+      $('#modal-crear-ticket').fadeOut(300, () => {
          $('#estado').hide();
         searchTickets();
       });
@@ -71,17 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.getElementById('volver').addEventListener('click', () => {
-  $('.modal-overlay').fadeOut(300, () => {
+  $('#modal-crear-ticket').fadeOut(300, () => {
     $('#estado').hide();
   });
 });
 
 document.getElementById('btnCrearTicket').addEventListener('click', () => {
-  $('.modal-overlay').find('input, textarea').val('').prop('disabled', false);
-  $('#prioridad').val('');
-
-  $('.modal-overlay').fadeIn();
-
+  $('#modal-crear-ticket').find('input, textarea').val('').prop('disabled', false);
+  $('#idTicket').val('');
+  $('#estado').hide();
+  $('#modal-crear-ticket').fadeIn();
 });
 
 
@@ -91,5 +90,5 @@ async function abrirModalEdicion(data) {
   $('#prioridad').val(data.prioridad);
   $('#idTicket').val(data.id_ticket);
   $('#estado').val(data.estado).show();
-  $('.modal-overlay').fadeIn(300);
+  $('#modal-crear-ticket').fadeIn(300);
 }

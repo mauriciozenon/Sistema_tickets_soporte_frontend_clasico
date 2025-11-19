@@ -1,174 +1,610 @@
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/*
+  Base y Tipografía
+*/
+:root {
+  --indigo-600: #4f46e5;
+  --purple-600: #9333ea;
+  --pink-500: #ec4899;
+  --gray-200: #e5e7eb;
+  --white: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --error-color: #ef4444;
 }
 
 body {
-  background: linear-gradient(120deg, #f0f4f8, #d9e2ec);
+  font-family: 'Inter', sans-serif; /* Usamos una fuente moderna si está disponible */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #1f2937; /* Color de texto oscuro para el contenido */
+}
+
+/*
+  Fondo y Efectos Decorativos
+*/
+.background {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow: hidden;
+  position: relative;
+  /* Degradado de fondo replicando: from-indigo-600 via-purple-600 to-pink-500 */
+  background: linear-gradient(to bottom right, var(--indigo-600), var(--purple-600), var(--pink-500));
 }
 
-.login-container {
-  background: white;
-  padding: 2rem 3rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.decorative-blur {
+  position: absolute;
+  background-color: var(--white);
+  opacity: 0.2;
+  border-radius: 50%;
+  filter: blur(80px); /* Usamos un valor alto para simular blur-3xl */
+  z-index: 0; /* Aseguramos que estén detrás de la tarjeta */
+}
+
+.blur-tl {
+  top: 5rem; /* top-20 */
+  left: 2.5rem; /* left-10 */
+  width: 18rem; /* w-72 */
+  height: 18rem; /* h-72 */
+}
+
+.blur-br {
+  bottom: 5rem; /* bottom-20 */
+  right: 2.5rem; /* right-10 */
+  width: 24rem; /* w-96 */
+  height: 24rem; /* h-96 */
+}
+
+/*
+  Contenedor de Tarjeta (Card)
+*/
+.card-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 28rem; /* max-w-md */
+  position: relative;
+  z-index: 10;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: 0.75rem; /* rounded-xl (simulado) */
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px var(--shadow-color); /* shadow-2xl */
+  border: none; /* border-0 */
+}
+
+/*
+  Encabezado de Tarjeta (Card Header)
+*/
+.card-header {
   text-align: center;
-  transition: transform 0.3s ease;
+  padding-bottom: 2rem;
+  margin-bottom: 0;
 }
 
-.login-container:hover {
-  transform: translateY(-5px);
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem; /* mb-6 */
 }
 
-h2 {
-  margin-bottom: 1.5rem;
-  color: #1e293b;
+.icon-large {
+  font-size: 3rem; /* Cambia el tamaño */
+  color: whitesmoke; /* Cambia el color */
+  padding: 1rem; /* p-4 */
+  border-radius: 1rem; /* rounded-2xl */
+  color: var(--white);
+  /* Degradado para el ícono replicando: bg-gradient-to-br from-indigo-600 to-purple-600 */
+  background: linear-gradient(to bottom right, var(--indigo-600), var(--purple-600));
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  scale: 0.8;
+  transition: all 2.5s;
 }
-
-label {
-  display: block;
-  text-align: left;
+.icon-large:hover{
+  scale: 1.3;
+  transform: rotate(75.4rad)
+}
+.card-title {
+  font-size: 1.5rem; /* text-2xl (simulado) */
+  font-weight: 700;
+  margin-top: 0;
   margin-bottom: 0.5rem;
-  color: #334155;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #6b7280; /* text-muted-foreground (simulado) */
+  margin: 0;
+}
+
+/*
+  Formulario
+*/
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* space-y-5 */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+.input-group label {
+  font-size: 0.875rem; /* text-sm */
   font-weight: 500;
 }
 
-input,
-select {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
+.input-group input {
+  height: 2.75rem; /* h-11 */
+  padding: 0 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem; /* rounded-lg (simulado) */
   font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-input:focus,
-select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-button {
+.input-group input:focus {
+  border-color: var(--indigo-600);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.login-button {
+  height: 2.75rem; /* h-11 */
   width: 100%;
-  padding: 0.75rem;
-  background-color: #3b82f6;
-  color: white;
-  font-size: 1rem;
+  color: var(--white);
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: #2563eb;
-}
-
-.error {
-  color: #ef4444;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.register-link {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.register-link button {
-  background: none;
-  color: #3b82f6;
-  padding: 0;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.register-link button:hover {
-  text-decoration: underline;
-}
-
-/* Dashboard / Tickets simple */
-.dashboard-container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-container h1 {
-  margin-bottom: 1rem;
-  color: #1e293b;
-}
-
-.dashboard-container p {
-  margin-bottom: 1rem;
-}
-
-.ticket-actions {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  justify-content: center;
+  transition: opacity 0.2s;
+  
+  /* Degradado para el botón replicando: bg-gradient-to-r from-indigo-600 to-purple-600 */
+  background: linear-gradient(to right, var(--indigo-600), var(--purple-600));
 }
 
-.tickets-list {
+.login-button:hover {
+  /* Cambio de degradado para hover replicando: hover:from-indigo-700 hover:to-purple-700 */
+  background: linear-gradient(to right, #4338ca, #7e22ce);
+}
+
+.button-icon {
+  margin-right: 0.5rem;
+}
+
+/*
+  Mensaje de Error
+*/
+.error-message {
+  padding: 0.75rem; /* p-3 */
+  background-color: #fef2f2; /* bg-red-50 (simulado) */
+  border: 1px solid #fecaca; /* border-red-200 (simulado) */
+  border-radius: 0.5rem; /* rounded-lg */
+  color: #dc2626; /* text-red-600 (simulado) */
+  font-size: 0.875rem; /* text-sm */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+/*
+  Sección de Usuarios de Prueba
+*/
+.test-users-section {
+  margin-top: 2rem; /* mt-8 */
+  margin-bottom: 1rem;
+}
+
+.separator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.separator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--gray-200); /* border-t border-gray-200 */
+  z-index: 1;
+}
+
+.separator-text {
+  position: relative;
+  padding: 0 0.5rem; /* px-2 */
+  background-color: var(--white);
+  color: #6b7280; /* text-muted-foreground */
+  font-size: 0.875rem; /* text-sm */
+  z-index: 2;
+}
+
+.users-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 0.75rem; /* gap-3 */
 }
 
-.ticket-card {
-  background: #f8fafc;
-  border-left: 6px solid #3b82f6;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+.user-block {
+  padding: 0.75rem; /* p-3 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 0.875rem; /* text-sm */
 }
 
-.ticket-card:hover {
-  transform: translateY(-4px);
+/* Estilos de Administradores */
+.admin-block {
+  /* Degradado replicando: bg-gradient-to-br from-blue-50 to-indigo-50 */
+  background: linear-gradient(to bottom right, #eff6ff, #eef2ff);
+  border: 1px solid #dbeafe; /* border border-blue-100 */
 }
 
-.ticket-card h3 {
-  margin-bottom: 0.5rem;
-  color: #1e293b;
+.admin-icon {
+  color: var(--indigo-600); /* text-indigo-600 */
 }
 
-.ticket-card p {
-  margin-bottom: 0.25rem;
-  font-size: 0.95rem;
-  color: #475569;
+/* Estilos de Clientes */
+.client-block {
+  /* Degradado replicando: bg-gradient-to-br from-purple-50 to-pink-50 */
+  background: linear-gradient(to bottom right, #faf5ff, #fdf2f8);
+  border: 1px solid #ede9fe; /* border border-purple-100 */
 }
 
-.ticket-card .estado {
-  font-weight: bold;
-  color: #2563eb;
+.client-icon {
+  color: var(--purple-600); /* text-purple-600 */
 }
 
-.estado-selector {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  font-size: 0.95rem;
-  background-color: #f1f5f9;
+.user-role-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  margin-bottom: 0.5rem; /* mb-2 */
 }
-.estado-selector:hover {
-  border-color: #3b82f6;
+
+.role-icon {
+  width: 1rem; /* w-4 */
+  height: 1rem; /* h-4 */
+}
+
+.user-details {
+  padding-left: 1.5rem; /* pl-6 */
+  line-height: 1.4;
+}
+
+.user-details p {
+  margin: 0;
+}
+
+.user-details strong {
+  font-weight: 600;
+}
+
+.muted {
+  color: #6b7280; /* text-muted-foreground (simulado) */
+}/*
+  --- Estilos Requeridos (Asegúrate de tenerlos del ejercicio de Login) ---
+*/
+:root {
+  --indigo-600: #4f46e5;
+  --purple-600: #9333ea;
+  --white: #ffffff;
+  --gray-200: #e5e7eb;
+}
+
+/* Reutilización del fondo y tarjeta del Login */
+.background {
+  /* ... (degradado, min-height, etc. del Login) ... */
+}
+
+.card {
+  /* ... (sombra, color, etc. del Login) ... */
+}
+
+.icon-large {
+  /* ... (tamaño, padding, degradado del ícono del Login) ... */
+}
+
+.input-group input, .custom-select {
+  /* ... (altura, bordes, focus del Login) ... */
+}
+
+/*
+  --- Estilos Específicos para el Registro ---
+*/
+
+/* Botón de Registro - Usa la misma estética degradada que el botón de Login */
+.register-button {
+  height: 2.75rem; /* h-11 */
+  width: 100%;
+  color: var(--white);
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  
+  /* Degradado idéntico al botón de Iniciar Sesión */
+  background: linear-gradient(to right, var(--indigo-600), var(--purple-600));
+}
+
+.register-button:hover {
+  /* Cambio de degradado para hover */
+  background: linear-gradient(to right, #4338ca, #7e22ce);
+}
+
+.button-icon {
+  margin-right: 0.5rem;
+}
+
+/* Estilo para el campo Select (Rol) para que parezca un input estético */
+.custom-select {
+  height: 2.75rem; /* h-11 */
+  padding: 0 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  
+  /* Reset de apariencia nativa para un look más limpio */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Añade un ícono de flecha personalizado (SVG codificado) para simular el dropdown */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.74l3.71-3.51a.75.75 0 111.02 1.08l-4.25 4a.75.75 0 01-1.02 0l-4.25-4a.75.75 0 01.02-1.08z' clip-rule='evenodd' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5em 1.5em;
+}
+
+.custom-select:focus {
+  border-color: var(--indigo-600);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Estilo para el enlace de "Volver al login" */
+.card-footer-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.card-footer-link p {
+  font-size: 0.875rem;
+  color: #6b7280; /* text-muted-foreground */
+  margin: 0;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--indigo-600);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
+  margin-left: 0.25rem;
+  transition: color 0.2s;
+}
+
+.link-button:hover {
+  color: var(--purple-600);
+}
+
+/* Ocultamos el texto del separador ya que solo queremos la línea */
+.separator-text.hidden {
+  background: transparent;
+}
+
+/* ============================================
+   MEDIA QUERIES - RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets pequeñas (640px - 768px) */
+@media (max-width: 768px) {
+  .background {
+    padding: 0.75rem;
+  }
+
+  .card-container {
+    max-width: 26rem;
+  }
+
+  .card {
+    padding: 1.75rem;
+  }
+
+  .card-title {
+    font-size: 1.375rem;
+  }
+
+  .card-description {
+    font-size: 0.95rem;
+  }
+
+  .icon-large {
+    font-size: 2.5rem;
+    padding: 0.875rem;
+  }
+
+  .input-group input,
+  .custom-select {
+    height: 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  .login-button,
+  .register-button {
+    height: 2.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Móviles (hasta 640px) */
+@media (max-width: 640px) {
+  .background {
+    padding: 0.5rem;
+  }
+
+  .decorative-blur {
+    filter: blur(60px);
+  }
+
+  .blur-tl {
+    width: 12rem;
+    height: 12rem;
+    top: 2rem;
+    left: 1rem;
+  }
+
+  .blur-br {
+    width: 16rem;
+    height: 16rem;
+    bottom: 2rem;
+    right: 1rem;
+  }
+
+  .card-container {
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .card-header {
+    padding-bottom: 1.5rem;
+  }
+
+  .icon-wrapper {
+    margin-bottom: 1rem;
+  }
+
+  .icon-large {
+    font-size: 2rem;
+    padding: 0.75rem;
+    scale: 0.7;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+
+  .card-description {
+    font-size: 0.875rem;
+  }
+
+  .login-form {
+    gap: 1rem;
+  }
+
+  .input-group {
+    gap: 0.4rem;
+  }
+
+  .input-group label {
+    font-size: 0.8rem;
+  }
+
+  .input-group input,
+  .custom-select {
+    height: 2.5rem;
+    padding: 0 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .login-button,
+  .register-button {
+    height: 2.5rem;
+    font-size: 0.9rem;
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+    padding: 0.65rem;
+  }
+
+  .test-users-section {
+    margin-top: 1.5rem;
+  }
+
+  .user-block {
+    padding: 0.65rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Móviles muy pequeños (hasta 480px) */
+@media (max-width: 480px) {
+  .background {
+    padding: 0.5rem;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+
+  .card-header {
+    padding-bottom: 1.25rem;
+  }
+
+  .icon-large {
+    font-size: 1.75rem;
+    padding: 0.65rem;
+    scale: 0.65;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+  }
+
+  .card-description {
+    font-size: 0.8rem;
+  }
+
+  .input-group label {
+    font-size: 0.75rem;
+  }
+
+  .input-group input,
+  .custom-select {
+    height: 2.25rem;
+    padding: 0 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .login-button,
+  .register-button {
+    height: 2.25rem;
+    font-size: 0.85rem;
+  }
+
+  .error-message {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .user-block {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
 }

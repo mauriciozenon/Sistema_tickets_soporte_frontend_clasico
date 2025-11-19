@@ -90,26 +90,26 @@ function renderTickets(tickets) {
 
     if (usuario.rol === 'administrador') {
       row.innerHTML = `
-      <td>${new Date(ticket.fecha_hora).toLocaleString()}</td>
-      <td>${ticket.id_usuario}</td>
-      <td>${ticket.nombre}</td>
-      <td><span class="truncado">${ticket.asunto}</span></td>
-      <td><span class="truncado">${ticket.descripcion}</span></td>
-      <td><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
-      <td><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
-      <td>
-        <button class="btn-editar">Editar</button>
-        <button class="btn-eliminar">Eliminar</button>
+      <td data-label="Fecha">${new Date(ticket.fecha_hora).toLocaleString()}</td>
+      <td data-label="ID Cliente">${ticket.id_usuario}</td>
+      <td data-label="Cliente">${ticket.nombre}</td>
+      <td data-label="Título"><span class="truncado">${ticket.asunto}</span></td>
+      <td data-label="Descripción"><span title="${ticket.descripcion}" class="truncado descripcion-ticket">${ticket.descripcion}</span></td>
+      <td data-label="Prioridad"><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
+      <td data-label="Estado"><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
+      <td data-label="Acciones">
+        <button class="btn-action btn-editar">Editar</button>
+        <button class="btn-action btn-eliminar">Eliminar</button>
       </td>
     `;
     }
     else {
       row.innerHTML = `
-      <td>${new Date(ticket.fecha_hora).toLocaleString()}</td>
-      <td>${ticket.asunto}</td>
-      <td>${ticket.descripcion}</td>
-      <td><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
-      <td><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
+      <td data-label="Fecha/Hora">${new Date(ticket.fecha_hora).toLocaleString()}</td>
+      <td data-label="Asunto">${ticket.asunto}</td>
+      <td data-label="Descripción">${ticket.descripcion}</td>
+      <td data-label="Prioridad"><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
+      <td data-label="Estado"><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
     `;
     }
     $(row).data('idTicket', ticket.id_ticket);
