@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle del Ticket - Administrador</title>
+    <link rel="stylesheet" href="../styles/utils.css" />
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link rel="stylesheet" href="../styles/detalle-ticket.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para controles de admin */
+        .admin-controls {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-controls h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .control-group select {
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            background-color: white;
+            font-size: 0.95rem;
+        }
+
+        .btn-update {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-top: auto;
+        }
+
+        .btn-update:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+        <header>
+            <h1><i class="bi bi-ticket-perforated icon-large"></i> Sistema de Gestión de Tickets</h1>
+            <div class="user-info">
+                <span>Bienvenido, <strong id="nombre-usuario">Administrador</strong></span>
+                <span id="rol-usuario" style="margin-left: 5px; font-weight: bold;"></span>
+                <a href="dashboard.html" class="cerrar section">Volver al Dashboard</a>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Información del Ticket -->
+            <section class="ticket-info">
+                <div class="ticket-header">
+                    <h2 id="ticket-asunto">Cargando...</h2>
+                    <div class="ticket-meta">
+                        <span class="badge prioridad" id="ticket-prioridad">-</span>
+                        <span class="badge estado" id="ticket-estado">-</span>
+                    </div>
+                </div>
+
+                <div class="ticket-details">
+                    <div class="detail-item">
+                        <label><i class="bi bi-calendar3"></i> Fecha de Creación:</label>
+                        <span id="ticket-fecha">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label><i class="bi bi-hash"></i> ID del Ticket:</label>
+                        <span id="ticket-id">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label><i class="bi bi-person"></i> Cliente:</label>
+                        <span id="ticket-cliente">-</span>
+                    </div>
+                </div>
+
+                <div class="ticket-description">
+                    <h3>Descripción del Ticket</h3>
+                    <p id="ticket-descripcion">-</p>
+                </div>
+            </section>
+
+            <!-- Controles de Administrador -->
+            <section class="admin-controls">
+                <h3><i class="bi bi-gear-fill"></i> Gestión del Ticket</h3>
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label for="select-estado">Estado</label>
+                        <select id="select-estado">
+                            <option value="pendiente">Pendiente</option>
+                            <option value="trabajando">En Proceso</option>
+                            <option value="cerrado">Cerrado</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="select-prioridad">Prioridad</label>
+                        <select id="select-prioridad">
+                            <option value="baja">Baja</option>
+                            <option value="media">Media</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-actualizar-ticket" class="btn-update">
+                        <i class="bi bi-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </section>
+
+            <!-- Área de Chat -->
+            <section class="chat-section">
+                <div class="chat-header">
+                    <h3><i class="bi bi-chat-dots"></i> Conversación con Cliente</h3>
+                    <p class="chat-subtitle">Comunícate con el cliente para resolver el ticket</p>
+                </div>
+
+                <div class="chat-container" id="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="loading-message">
+                            <i class="bi bi-hourglass-split"></i>
+                            <p>Cargando mensajes...</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <form id="chat-form" class="chat-form">
+                            <textarea id="message-input" class="message-input"
+                                placeholder="Escribe tu respuesta aquí..." rows="3" maxlength="500"></textarea>
+                            <div class="chat-actions">
+                                <span class="char-count"><span id="char-count">0</span>/500</span>
+                                <button type="submit" class="btn-send" id="btn-send">
+                                    <i class="bi bi-send-fill"></i> Enviar Respuesta
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Firebase SDK & Init -->
+    <script type="module" src="../scripts/firebase-init.js"></script>
+
+    <script src="../lib/jquery/jquery-3.7.1.min.js"></script>
+    <script src="../scripts/utils.js"></script>
+    <script src="../scripts/services/apiService.js"></script>
+    <script src="../scripts/detalle-ticket-admin.js"></script>
+</body>
+
+</html>

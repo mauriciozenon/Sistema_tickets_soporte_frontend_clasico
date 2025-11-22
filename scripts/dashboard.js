@@ -48,45 +48,48 @@ async function cargarTickets() {
     await searchTickets();
   } catch (error) {
     console.error('Error al cargar tickets:', error);
-    ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
+    const colspan = usuario && usuario.rol === 'administrador' ? 8 : 5;
+    ticketsBody.innerHTML = `<tr><td colspan="${colspan}">No se pudieron cargar los tickets.</td></tr>`;
   }
 }
 async function searchTickets() {
   try {
     let filtros = await construirFiltros('tickets');
     const data = await getAsync('tickets', (filtros ? filtros : null));
-    if (!data || !data.tickets) {
-      ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
-      return;
-    }
+    const colspan = usuario && usuario.rol === 'administrador' ? 8 : 5;
 
     if (!data || !data.tickets) {
-      ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
+      ticketsBody.innerHTML = `<tr><td colspan="${colspan}">No se pudieron cargar los tickets.</td></tr>`;
       return;
     }
-
-
 
     renderTickets(data.tickets);
     actualizarResumen(data.tickets);
   } catch (error) {
     console.error('Error al buscar tickets:', error);
-    ticketsBody.innerHTML = `<tr><td colspan="6">No se pudieron cargar los tickets.</td></tr>`;
+    const colspan = usuario && usuario.rol === 'administrador' ? 8 : 5;
+    ticketsBody.innerHTML = `<tr><td colspan="${colspan}">No se pudieron cargar los tickets.</td></tr>`;
   }
-
-
 }
+
+document.getElementById('filterActivo')?.addEventListener('change', () => {
+  searchTickets();
+});
 
 function renderTickets(tickets) {
   ticketsBody.innerHTML = '';
 
+  const colspan = usuario.rol === 'administrador' ? 8 : 5;
+
+
   if (tickets.length === 0) {
-    ticketsBody.innerHTML = `<tr><td colspan="6">No hay tickets para mostrar.</td></tr>`;
+    ticketsBody.innerHTML = `<tr><td colspan="${colspan}">No hay tickets para mostrar.</td></tr>`;
     return;
   }
 
   tickets.forEach(ticket => {
     const row = document.createElement('tr');
+    const ticketId = ticket.id_ticket || ticket.id;
 
     if (usuario.rol === 'administrador') {
       row.innerHTML = `
@@ -98,6 +101,7 @@ function renderTickets(tickets) {
       <td data-label="Prioridad"><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
       <td data-label="Estado"><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
       <td data-label="Acciones">
+        <button class="btn-action btn-ver">Ver</button>
         <button class="btn-action btn-editar">Editar</button>
         <button class="btn-action btn-eliminar">Eliminar</button>
       </td>
@@ -111,11 +115,21 @@ function renderTickets(tickets) {
       <td data-label="Prioridad"><span class="prioridad ${ticket.prioridad}">${ticket.prioridad.toUpperCase()}</span></td>
       <td data-label="Estado"><span class="estado ${ticket.estado}">${ticket.estado}</span></td>
     `;
+      // Hacer la fila clickeable para clientes
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', () => {
+        window.location.href = `detalle-ticket.html?id=${ticketId}`;
+      });
     }
-    $(row).data('idTicket', ticket.id_ticket);
+    $(row).data('idTicket', ticketId);
     ticketsBody.appendChild(row);
   });
 }
+
+$(document).on('click', '.btn-ver', function (evento) {
+  const idTicket = $(this).closest('tr').data('idTicket');
+  window.location.href = `detalle-ticket.html?id=${idTicket}`;
+});
 
 $(document).on('click', '.btn-editar', async function (evento) {
   const idTicket = $(this).closest('tr').data('idTicket');
@@ -129,14 +143,20 @@ $(document).on('click', '.btn-eliminar', async function (evento) {
   $('#modal-confirmacion').data('idTicket', $(this).closest('tr').data('idTicket'));
   $('#modal-confirmacion').fadeIn();
 });
+
 $(document).on('click', '#btnConfirmar', async function () {
   const idTicket = $(this).closest('#modal-confirmacion').data('idTicket');
   try {
-    const res = await fetch(`${API_BASE}/tickets/${idTicket}`, {
-      method: 'DELETE'
-    });
-    const data = await res.json();
-    if (!res.ok) {
+    // Borrado lógico: Obtener ticket completo, cambiar activo a false y hacer PUT
+    const ticketData = await getTicketDetails(idTicket);
+    if (!ticketData) return;
+
+    ticketData.activo = 0;
+
+    // Usar putAsync del servicio
+    const data = await putAsync(`tickets/${idTicket}`, ticketData);
+
+    if (data.error) {
       alert(data.error || 'Error al eliminar el ticket.');
       return;
     }
@@ -144,9 +164,11 @@ $(document).on('click', '#btnConfirmar', async function () {
     showToast('Ticket eliminado con éxito', 'success');
     searchTickets();
   } catch (err) {
+    console.error(err);
     alert('No se pudo conectar con el servidor.');
   }
 });
+
 $(document).on('click', '#btnCancelar', function () {
   $('#modal-confirmacion').fadeOut();
 });

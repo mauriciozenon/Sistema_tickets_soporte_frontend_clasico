@@ -12,11 +12,6 @@ if (goRegisterBtn) {
   });
 }
 
-if (goLoginBtn) {
-  goLoginBtn.addEventListener('click', () => {
-    window.location.href = 'index.html';
-  });
-}
 
 // LOGIN
 if (loginForm) {
@@ -48,12 +43,12 @@ if (loginForm) {
 
           // Redirección según rol
           window.location.href = usuario.rol === 'administrador'
-            ? 'dashboard.html'
-            : 'dashboard-cliente.html';
+            ? './components/dashboard.html'
+            : './components/cliente/dashboard-cliente.html';
         },
 
         error: function (jqXHR, textStatus, errorThrown) {
-          errorEl.textContent = jqXHR.responseJSON?.error || 'Credenciales inválidas';
+          showToast('Credenciales inválidas', 'error');
         }
       });
 

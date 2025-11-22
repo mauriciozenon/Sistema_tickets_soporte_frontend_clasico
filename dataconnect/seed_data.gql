@@ -1,0 +1,54 @@
+mutation SeedDatabase @transaction @auth(level: PUBLIC, insecureReason: "This operation is used to seed the database with example data and is safe to expose to the public") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      createdAt: "2024-04-26T12:00:00Z",
+      displayName: "Demo User 1",
+      email: "demo1@example.com",
+      userType: "customer"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2024-04-26T13:00:00Z",
+      displayName: "Demo User 2",
+      email: "demo2@example.com",
+      userType: "agent"
+    }
+  ])
+  ticket_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      customerId: "550e8400-e29b-41d4-a716-446655440000",
+      createdAt: "2024-04-27T09:00:00Z",
+      description: "Example ticket 1 description",
+      lastActivityAt: "2024-04-27T10:00:00Z",
+      status: "open",
+      subject: "Example ticket 1 subject"
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440001",
+      customerId: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2024-04-27T10:00:00Z",
+      description: "Example ticket 2 description",
+      lastActivityAt: "2024-04-27T11:00:00Z",
+      status: "closed",
+      subject: "Example ticket 2 subject"
+    }
+  ])
+  message_insertMany(data: [
+    {
+      id: "750e8400-e29b-41d4-a716-446655440000",
+      senderId: "550e8400-e29b-41d4-a716-446655440000",
+      ticketId: "650e8400-e29b-41d4-a716-446655440000",
+      content: "Example message 1 content",
+      createdAt: "2024-04-27T10:30:00Z"
+    },
+    {
+      id: "750e8400-e29b-41d4-a716-446655440001",
+      senderId: "550e8400-e29b-41d4-a716-446655440001",
+      ticketId: "650e8400-e29b-41d4-a716-446655440001",
+      content: "Example message 2 content",
+      createdAt: "2024-04-27T11:30:00Z"
+    }
+  ])
+}

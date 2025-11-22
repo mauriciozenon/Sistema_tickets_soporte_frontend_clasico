@@ -1,0 +1,27 @@
+mutation CreateTicket($customerId: UUID!, $description: String!, $status: String!, $subject: String!) @auth(level: USER) {
+  ticket_insert(data: {customerId: $customerId, description: $description, status: $status, subject: $subject, createdAt_expr: "request.time", lastActivityAt_expr: "request.time"})
+}
+
+query ListTicketsForCustomer($customerId: UUID!) @auth(level: USER) {
+  tickets(where: {customerId: {eq: $customerId}}) {
+    id
+    subject
+    status
+    createdAt
+    lastActivityAt
+  }
+}
+
+mutation AddMessageToTicket($ticketId: UUID!, $senderId: UUID!, $content: String!) @auth(level: USER) {
+  message_insert(data: {ticketId: $ticketId, senderId: $senderId, content: $content, createdAt_expr: "request.time"})
+}
+
+query ListMessagesForTicket($ticketId: UUID!) @auth(level: USER) {
+  messages(where: {ticketId: {eq: $ticketId}}) {
+    id
+    senderId
+    content
+    createdAt
+    readAt
+  }
+}

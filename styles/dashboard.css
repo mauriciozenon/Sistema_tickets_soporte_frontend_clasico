@@ -78,7 +78,7 @@ header h1 {
   --- Contenido Principal y Contenedor (container mx-auto) ---
 */
 .main {
-  max-width: 1280px; /* Simula container mx-auto */
+  width: 95%;
   margin: 0 auto;
   padding: 2rem 1rem; /* px-4 py-8 */
 }
@@ -195,14 +195,7 @@ header h1 {
   margin: 0;
 }
 
-/* Replicar el ícono de ticket en el h3 */
-.tickets-header h3::before {
-  content: '\f3ff'; /* Icono de Ticket en Font Awesome */
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  font-size: 1.25rem;
-  margin-right: 0.5rem;
-}
+/* Removido el ícono ::before para un diseño más limpio */
 
 /* Tabla */
 .tickets table {

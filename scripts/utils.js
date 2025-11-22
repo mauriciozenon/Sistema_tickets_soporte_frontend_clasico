@@ -9,9 +9,9 @@ function showToast(message, type = 'info') {
   $('#toast-container').append($toast);
 
   // Cierre manual
-  // $toast.find('.close-btn').on('click', () => {
-  //   $toast.stop().fadeOut(300, () => $toast.remove());
-  // });
+  $toast.find('.close-btn').on('click', () => {
+    $toast.stop().fadeOut(300, () => $toast.remove());
+  });
 
   // Cierre automático
   setTimeout(() => {
@@ -31,7 +31,8 @@ async function construirFiltros(entidad) {
           // Filtro por prioridad
           const prioridad = $('#filterPrioridad').val();
           if (prioridad && prioridad !== '0') query += `&prioridad=${prioridad}`;
-          
+          const filtroActivo = document.getElementById('filterActivo') ? document.getElementById('filterActivo').value : '1';
+          if (filtroActivo) query += `&activo=${filtroActivo}`;
           // Filtro por estado
           const estado = $('#filterEstado').val();
           if (estado && estado !== '0') query += `&estado=${estado}`;
@@ -42,11 +43,11 @@ async function construirFiltros(entidad) {
         if (usuario.rol === 'cliente') {
           filtros.id_usuario = usuario.id_usuario;
         }
-
         break;
       default:
         break;
     }
+
   } catch (error) {
 
   }
