@@ -1,3 +1,4 @@
+const API_BASE = 'http://localhost:3000/api';
 function showToast(message, type = 'info') {
   const $toast = $(`
     <div class="toast ${type}">
@@ -20,37 +21,38 @@ function showToast(message, type = 'info') {
 }
 
 async function construirFiltros(entidad) {
-  let query = '';
+  let filtros = {};   // <--- OBJETO, no string
+
   try {
     switch (entidad) {
       case 'tickets':
+
         if (usuario.rol === 'administrador') {
-          // Filtro por Id de usuario
+
           const idUsuario = $('#filterIdUsuario').val().trim();
-          if (idUsuario) query += `&id_usuario=${idUsuario}`;
-          // Filtro por prioridad
+          if (idUsuario) filtros.id_usuario = idUsuario;
+
           const prioridad = $('#filterPrioridad').val();
-          if (prioridad && prioridad !== '0') query += `&prioridad=${prioridad}`;
-          const filtroActivo = document.getElementById('filterActivo') ? document.getElementById('filterActivo').value : '1';
-          if (filtroActivo) query += `&activo=${filtroActivo}`;
-          // Filtro por estado
+          if (prioridad && prioridad !== '0') filtros.prioridad = prioridad;
+
+          const filtroActivo = $('#filterActivo').val();
+          if (filtroActivo !== '') filtros.activo = filtroActivo;
+
           const estado = $('#filterEstado').val();
-          if (estado && estado !== '0') query += `&estado=${estado}`;
-        } else {
-          if (usuario.id_usuario) query += `&id_usuario=${usuario.id_usuario}`;
+          if (estado && estado !== '0') filtros.estado = estado;
         }
-        // Si sos cliente, filtramos por tu propio ID
+
+        // Si es cliente, fuerza su ID
         if (usuario.rol === 'cliente') {
           filtros.id_usuario = usuario.id_usuario;
         }
-        break;
-      default:
+
         break;
     }
 
   } catch (error) {
-
+    console.error(error);
   }
 
-  return query;
+  return filtros;
 }

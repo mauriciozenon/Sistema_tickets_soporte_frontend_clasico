@@ -1,5 +1,4 @@
 // Detalle Ticket Admin y Chat con Firebase
-const API_BASE = 'http://localhost:3000/api';
 let ticketId = null;
 let usuario = null;
 let chatUnsubscribe = null;
@@ -89,23 +88,16 @@ async function actualizarTicket() {
     btnActualizar.innerHTML = '<i class="bi bi-hourglass-split"></i> Guardando...';
 
     try {
-        const response = await fetch(`${API_BASE}/tickets/${ticketId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                estado: nuevoEstado,
-                prioridad: nuevaPrioridad
-            })
+        const response = await putAsync(`tickets/${ticketId}`, {
+            estado: nuevoEstado,
+            prioridad: nuevaPrioridad
         });
 
-        if (response.ok) {
+        if (!response.error) {
             showToast('Ticket actualizado correctamente', 'success');
             actualizarBadges(nuevaPrioridad, nuevoEstado);
         } else {
-            const errorData = await response.json();
-            showToast(errorData.message || 'Error al actualizar el ticket', 'error');
+            showToast(response.message || 'Error al actualizar el ticket', 'error');
         }
     } catch (error) {
         console.error('Error al actualizar ticket:', error);

@@ -1,12 +1,28 @@
 
-
 async function getAsync(entidad, parametros) {
   let url = `${API_BASE}/${entidad}`;
-  if (parametros) {
-    url += '?' + parametros;
+
+  if (parametros && typeof parametros === "object") {
+    url += "?" + new URLSearchParams(parametros).toString();
   }
 
-  const res = await fetch(`${url}`);
+  const res = await fetch(url, {
+    credentials: 'include'
+  });
+
+  if (!res.ok) {
+    let mensaje = `Error ${res.status}: ${res.statusText}`;
+    try {
+      const errorData = await res.json();
+      if (errorData.mensaje || errorData.error) {
+        mensaje = errorData.mensaje || errorData.error;
+      }
+    } catch (e) {
+      // Si no es JSON, usamos el statusText
+    }
+    throw new Error(mensaje);
+  }
+
   return res.json();
 }
 
@@ -16,8 +32,21 @@ async function postAsync(entidad, data) {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   });
+
+  if (!res.ok) {
+    let mensaje = `Error ${res.status}: ${res.statusText}`;
+    try {
+      const errorData = await res.json();
+      if (errorData.mensaje || errorData.error) {
+        mensaje = errorData.mensaje || errorData.error;
+      }
+    } catch (e) { }
+    throw new Error(mensaje);
+  }
+
   return res.json();
 }
 
@@ -27,8 +56,21 @@ async function putAsync(entidad, data) {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   });
+
+  if (!res.ok) {
+    let mensaje = `Error ${res.status}: ${res.statusText}`;
+    try {
+      const errorData = await res.json();
+      if (errorData.mensaje || errorData.error) {
+        mensaje = errorData.mensaje || errorData.error;
+      }
+    } catch (e) { }
+    throw new Error(mensaje);
+  }
+
   return res.json();
 }
 
@@ -38,15 +80,41 @@ async function patchAsync(entidad, data) {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   });
+
+  if (!res.ok) {
+    let mensaje = `Error ${res.status}: ${res.statusText}`;
+    try {
+      const errorData = await res.json();
+      if (errorData.mensaje || errorData.error) {
+        mensaje = errorData.mensaje || errorData.error;
+      }
+    } catch (e) { }
+    throw new Error(mensaje);
+  }
+
   return res.json();
 }
 
 async function deleteAsync(entidad) {
   const res = await fetch(`${API_BASE}/${entidad}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    credentials: 'include'
   });
+
+  if (!res.ok) {
+    let mensaje = `Error ${res.status}: ${res.statusText}`;
+    try {
+      const errorData = await res.json();
+      if (errorData.mensaje || errorData.error) {
+        mensaje = errorData.mensaje || errorData.error;
+      }
+    } catch (e) { }
+    throw new Error(mensaje);
+  }
+
   return res.json();
 }
 

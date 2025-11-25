@@ -54,13 +54,22 @@
             <option value="0">Eliminados</option>
             <option value="">Todos</option>
           </select>
+          <button id="btnRegistrarUsuario" class="btn" style="width: auto; padding: 0 1rem;">Registrar Usuario</button>
         </div>
       </section>
 
       <section class="tickets">
+        <div class="paginado-header">
+          <label for="limitSelect">Tickets por página:</label>
+          <select id="limitSelect">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
         <div class="tickets-header">
           <h3>Lista de Tickets</h3>
-          <button class="btn" id="btnCrearTicket">+ Nuevo Ticket</button>
+          <!-- <button class="btn" id="btnCrearTicket">+ Nuevo Ticket</button> -->
         </div>
         <table>
           <thead>
@@ -76,9 +85,9 @@
             </tr>
           </thead>
           <tbody id="ticketsBody">
-            <!-- Tickets renderizados -->
           </tbody>
         </table>
+        <div class="pagination" id="paginador"></div>
       </section>
     </main>
   </div>
@@ -127,6 +136,40 @@
     </div>
   </div>
 
+  <div id="modal-registro-admin" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h2>Registrar Nuevo Usuario</h2>
+      <form id="formRegistroAdmin" class="login-form">
+        <div class="input-group">
+          <label for="regNombre">Nombre:</label>
+          <input type="text" id="regNombre" required autocomplete="off" />
+        </div>
+
+        <div class="input-group">
+          <label for="regEmail">Email:</label>
+          <input type="email" id="regEmail" required autocomplete="off" />
+        </div>
+
+        <div class="input-group">
+          <label for="regPassword">Contraseña:</label>
+          <input type="password" id="regPassword" required />
+        </div>
+
+        <div class="input-group">
+          <label for="regRol">Rol:</label>
+          <select id="regRol" required class="custom-select">
+            <option value="cliente">Cliente</option>
+            <option value="administrador">Administrador</option>
+          </select>
+        </div>
+
+        <div class="modal-buttons">
+          <button type="button" id="btnCancelarRegistro" class="btn volver">Cancelar</button>
+          <button type="submit" class="register-button">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div id="toast-container"></div>
 

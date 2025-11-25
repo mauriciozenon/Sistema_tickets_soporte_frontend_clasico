@@ -1,5 +1,4 @@
 // Detalle Ticket y Chat con Firebase
-const API_BASE = 'http://localhost:3000/api';
 let ticketId = null;
 let usuario = null;
 let chatUnsubscribe = null;

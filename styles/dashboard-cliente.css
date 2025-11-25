@@ -78,7 +78,8 @@ header h1 {
 main {
   width: 95%;
   margin: 0 auto;
-  padding: 2rem 1rem; /* px-4 py-8 */
+  padding: 2rem 1rem;
+  /* px-4 py-8 */
 }
 
 /*
@@ -86,9 +87,12 @@ main {
 */
 .status {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* grid-cols-1 md:grid-cols-4 */
-  gap: 1.5rem; /* gap-6 */
-  margin-bottom: 2rem; /* mb-8 */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* grid-cols-1 md:grid-cols-4 */
+  gap: 1.5rem;
+  /* gap-6 */
+  margin-bottom: 2rem;
+  /* mb-8 */
 }
 
 .card {
@@ -124,19 +128,22 @@ main {
 .card.pendiente {
   border-color: var(--border-pendiente);
   color: var(--text-amber);
-  background: linear-gradient(to bottom right, var(--bg-pendiente), #fffbe6); /* Ajuste para to-amber-100 */
+  background: linear-gradient(to bottom right, var(--bg-pendiente), #fffbe6);
+  /* Ajuste para to-amber-100 */
 }
 
 .card.proceso {
   border-color: var(--border-proceso);
   color: var(--text-blue);
-  background: linear-gradient(to bottom right, var(--bg-proceso), #e0f2fe); /* Ajuste para to-blue-100 */
+  background: linear-gradient(to bottom right, var(--bg-proceso), #e0f2fe);
+  /* Ajuste para to-blue-100 */
 }
 
 .card.cerrado {
   border-color: var(--border-cerrado);
   color: var(--text-green);
-  background: linear-gradient(to bottom right, var(--bg-cerrado), #f0fdf4); /* Ajuste para to-green-100 */
+  background: linear-gradient(to bottom right, var(--bg-cerrado), #f0fdf4);
+  /* Ajuste para to-green-100 */
 }
 
 /*
@@ -146,7 +153,8 @@ main {
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: var(--shadow-xl);
-  border: 2px solid #e5e7eb; /* border-2 */
+  border: 2px solid #e5e7eb;
+  /* border-2 */
 }
 
 .tickets-header {
@@ -168,9 +176,7 @@ main {
   margin: 0;
 }
 
-/* Removido el ícono ::before para un diseño más limpio */
 
-/* Paginado header específico del cliente */
 .paginado-header {
   display: flex;
   align-items: center;
@@ -254,7 +260,8 @@ main {
   -webkit-box-orient: vertical;
 }
 
-.tickets td .text-xs, .tickets td .muted-foreground {
+.tickets td .text-xs,
+.tickets td .muted-foreground {
   /* text-xs text-muted-foreground */
   font-size: 0.75rem;
   color: #6b7280;
@@ -269,18 +276,24 @@ main {
 }
 
 .icon-large {
-  font-size: 3rem; /* Cambia el tamaño */
-  color: whitesmoke; /* Cambia el color */
-  padding: 1rem; /* p-4 */
-  border-radius: 1rem; /* rounded-2xl */
+  font-size: 3rem;
+  /* Cambia el tamaño */
+  color: whitesmoke;
+  /* Cambia el color */
+  padding: 1rem;
+  /* p-4 */
+  border-radius: 1rem;
+  /* rounded-2xl */
   color: white;
   /* Degradado para el ícono replicando: bg-gradient-to-br from-indigo-600 to-purple-600 */
   background: linear-gradient(to bottom right, var(--color-indigo-600), var(--color-purple-600));
   border: 1px solid white;
-  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.384), 0 4px 6px -5px rgba(255, 255, 255, 0.87); /* shadow-lg */
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.384), 0 4px 6px -5px rgba(255, 255, 255, 0.87);
+  /* shadow-lg */
   scale: 0.8;
   transition: ease .1s;
 }
+
 .icon-large:hover {
   scale: 0.9;
 }
@@ -288,20 +301,26 @@ main {
 /* Estado de tabla vacía (No se encontraron tickets) */
 .empty-state {
   text-align: center;
-  color: #9ca3af; /* text-muted-foreground */
-  padding: 3rem 0; /* py-12 */
+  color: #9ca3af;
+  /* text-muted-foreground */
+  padding: 3rem 0;
+  /* py-12 */
 }
 
 .empty-state svg {
-  width: 3rem; /* w-12 */
-  height: 3rem; /* h-12 */
-  color: rgba(209, 213, 219, 0.5); /* text-muted-foreground/50 */
+  width: 3rem;
+  /* w-12 */
+  height: 3rem;
+  /* h-12 */
+  color: rgba(209, 213, 219, 0.5);
+  /* text-muted-foreground/50 */
   margin: 0 auto 0.5rem;
   display: block;
 }
 
 .btn-new {
-  height: 2.75rem; /* h-11 */
+  height: 2.75rem;
+  /* h-11 */
   width: 200px;
   color: white;
   font-weight: 600;
@@ -312,7 +331,7 @@ main {
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s;
-  
+
   /* Degradado para el botón replicando: bg-gradient-to-r from-indigo-600 to-purple-600 */
   background: linear-gradient(to right, var(--color-indigo-600), var(--color-purple-600));
 }
@@ -635,4 +654,36 @@ main {
     width: 28%;
     font-size: 0.6rem;
   }
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  background: #f3f3f3;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.2s ease;
+}
+
+.pagination button:hover {
+  background: #e2e2e2;
+}
+
+.pagination button.active {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  background: #ddd;
+  color: #777;
+  cursor: not-allowed;
 }

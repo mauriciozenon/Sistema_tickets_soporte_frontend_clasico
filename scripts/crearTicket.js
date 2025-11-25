@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const API_BASE = 'http://localhost:3000/api';
   const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     errorEl.textContent = '';
@@ -24,44 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const idTicket = document.getElementById('idTicket').value;
       const estado = document.getElementById('estado').value;
-      let res = null;
+      let data = null;
       let message = '';
       if (idTicket) {
         message = 'Ticket actualizado con éxito';
-        res = await fetch(`${API_BASE}/tickets/${idTicket}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },          
-          body: JSON.stringify({
-            asunto,
-            descripcion,
-            prioridad,
-            estado,
-            id_usuario: usuario.id_usuario
-          })
+        data = await putAsync(`tickets/${idTicket}`, {
+          asunto,
+          descripcion,
+          prioridad,
+          estado,
+          id_usuario: usuario.id_usuario
         });
       } else {
         message = 'Ticket creado con éxito';
-        res = await fetch(`${API_BASE}/tickets`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            asunto,
-            descripcion,
-            prioridad,
-            id_usuario: usuario.id_usuario
-          })
+        data = await postAsync('tickets', {
+          asunto,
+          descripcion,
+          prioridad,
+          id_usuario: usuario.id_usuario
         });
       }
-      const data = await res.json();
 
-      if (!res.ok) {
+      if (data.error) {
         showToast('Error al crear o actualizar el ticket.', 'error');
-        // errorEl.textContent = data.error || 'Error al crear el ticket.';
         return;
       }
       showToast(message, 'success');
       $('#modal-crear-ticket').fadeOut(300, () => {
-         $('#estado').hide();
+        $('#estado').hide();
         searchTickets();
       });
     } catch (err) {
@@ -75,14 +63,14 @@ document.getElementById('volver').addEventListener('click', () => {
     $('#estado').hide();
   });
 });
-
-document.getElementById('btnCrearTicket').addEventListener('click', () => {
-  $('#modal-crear-ticket').find('input, textarea').val('').prop('disabled', false);
-  $('#idTicket').val('');
-  $('#estado').hide();
-  $('#modal-crear-ticket').fadeIn();
-});
-
+if (document.getElementById('btnCrearTicket')) {
+  document.getElementById('btnCrearTicket').addEventListener('click', () => {
+    $('#modal-crear-ticket').find('input, textarea').val('').prop('disabled', false);
+    $('#idTicket').val('');
+    $('#estado').hide();
+    $('#modal-crear-ticket').fadeIn();
+  });
+}
 
 async function abrirModalEdicion(data) {
   $('#asunto').prop('disabled', true).val(data.asunto);

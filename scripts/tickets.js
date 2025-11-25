@@ -1,6 +1,5 @@
 // scripts/tickets.js
 
-const API_BASE = 'http://localhost:3000/api'; // ajustá según tu backend
 const ticketsList = document.getElementById('tickets-list');
 const filtroEstado = document.getElementById('filtro-estado');
 const usuarioNombre = document.getElementById('usuario-nombre');
@@ -11,39 +10,46 @@ const usuario = JSON.parse(localStorage.getItem('usuario'));
 
 // Mostrar nombre
 if (usuario && usuario.nombre) {
-    usuarioNombre.textContent = usuario.nombre;
+  usuarioNombre.textContent = usuario.nombre;
 }
 
 // Cargar tickets al iniciar
 document.addEventListener('DOMContentLoaded', () => {
-    cargarTickets();
+  cargarTickets();
 });
 
 // Filtro por estado
-filtroEstado.addEventListener('change', () => {
+if (filtroEstado) {
+  filtroEstado.addEventListener('change', () => {
     cargarTickets(filtroEstado.value);
-});
+  });
+}
 
 // Crear nuevo ticket (redirección o modal)
-btnNuevoTicket.addEventListener('click', () => {
+if (btnNuevoTicket) {
+  btnNuevoTicket.addEventListener('click', () => {
     window.location.href = 'crear_ticket.html'; // o abrir modal
-});
+  });
+}
 
 // Obtener tickets desde la API
 async function cargarTickets(estado = '') {
-    try {
-        const res = await fetch(`${API_BASE}/tickets?usuarioId=${usuario.id_usuario}`);
-        const data = await res.json();
+  if (!usuario || !usuario.id_usuario) {
+    console.warn('Usuario no logueado o sin ID');
+    return;
+  }
+  try {
+    const data = await getAsync(`tickets?usuarioId=${usuario.id_usuario}`);
 
-        const filtrados = estado
-            ? data.filter(ticket => ticket.estado === estado)
-            : data;
+    const filtrados = estado
+      ? data.filter(ticket => ticket.estado === estado)
+      : data;
 
-        renderTickets(filtrados);
-    } catch (error) {
-        console.error('Error al cargar tickets:', error);
-        ticketsList.innerHTML = `<p class="error">No se pudieron cargar los tickets.</p>`;
-    }
+    renderTickets(filtrados);
+  } catch (error) {
+    console.error('Error al cargar tickets:', error);
+    ticketsList.innerHTML = `<p class="error">No se pudieron cargar los tickets.</p>`;
+  }
 }
 
 // Renderizar tarjetas visuales
@@ -89,6 +95,3 @@ function renderTickets(tickets) {
     ticketsList.appendChild(card);
   });
 }
-
-
-   
