@@ -1,0 +1,19 @@
+# Ignorar archivo de configuración local
+config/env.js
+
+# Node modules (si se usan en el futuro)
+node_modules/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

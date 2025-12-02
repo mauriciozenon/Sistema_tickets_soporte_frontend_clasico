@@ -1,4 +1,3 @@
-const API_BASE = 'http://localhost:3000/api';
 function showToast(message, type = 'info') {
   const $toast = $(`
     <div class="toast ${type}">
