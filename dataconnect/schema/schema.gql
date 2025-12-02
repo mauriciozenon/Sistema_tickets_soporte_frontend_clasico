@@ -1,0 +1,27 @@
+type User @table {
+  email: String!
+  displayName: String!
+  createdAt: Timestamp!
+  userType: String!
+  phoneNumber: String
+  photoUrl: String
+}
+
+type Ticket @table {
+  subject: String!
+  description: String!
+  status: String!
+  createdAt: Timestamp!
+  customer: User!
+  agent: User
+  priority: String
+  lastActivityAt: Timestamp
+}
+
+type Message @table {
+  content: String!
+  createdAt: Timestamp!
+  ticket: Ticket!
+  sender: User!
+  readAt: Timestamp
+}
