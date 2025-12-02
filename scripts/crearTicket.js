@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const errorEl = document.getElementById('error');
   const volverBtn = document.getElementById('volver');
 
-  const API_BASE = 'http://localhost:3000/api';
+
   const usuario = JSON.parse(localStorage.getItem('usuario'));
 
   form.addEventListener('submit', async (e) => {

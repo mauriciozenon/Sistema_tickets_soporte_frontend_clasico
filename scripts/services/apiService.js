@@ -1,6 +1,6 @@
 
 async function getAsync(entidad, parametros) {
-  let url = `${API_BASE}/${entidad}`;
+  let url = `${window.ENV.API_BASE}/${entidad}`;
 
   if (parametros && typeof parametros === "object") {
     url += "?" + new URLSearchParams(parametros).toString();
@@ -27,7 +27,7 @@ async function getAsync(entidad, parametros) {
 }
 
 async function postAsync(entidad, data) {
-  const res = await fetch(`${API_BASE}/${entidad}`, {
+  const res = await fetch(`${window.ENV.API_BASE}/${entidad}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ async function postAsync(entidad, data) {
 }
 
 async function putAsync(entidad, data) {
-  const res = await fetch(`${API_BASE}/${entidad}`, {
+  const res = await fetch(`${window.ENV.API_BASE}/${entidad}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ async function putAsync(entidad, data) {
 }
 
 async function patchAsync(entidad, data) {
-  const res = await fetch(`${API_BASE}/${entidad}`, {
+  const res = await fetch(`${window.ENV.API_BASE}/${entidad}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ async function patchAsync(entidad, data) {
 }
 
 async function deleteAsync(entidad) {
-  const res = await fetch(`${API_BASE}/${entidad}`, {
+  const res = await fetch(`${window.ENV.API_BASE}/${entidad}`, {
     method: 'DELETE',
     credentials: 'include'
   });
