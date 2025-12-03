@@ -25,7 +25,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      - name: Debug API_BASE_URL
+        run: |
+            echo "API_BASE_URL => '${{ secrets.API_BASE_URL }}'"
+      
       - name: Create env.js from secrets
         run: |
           mkdir -p config
