@@ -1,5 +1,4 @@
 # Ignorar archivo de configuración local
-config/env.js
 
 # Node modules (si se usan en el futuro)
 node_modules/
