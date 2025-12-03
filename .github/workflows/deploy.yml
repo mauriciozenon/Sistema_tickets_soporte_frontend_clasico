@@ -1,0 +1,59 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]  # Cambia a 'master' si ese es tu branch principal
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Solo permite un deployment a la vez
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create env.js from secrets
+        run: |
+          mkdir -p config
+          cat > config/env.js << EOF
+          /**
+           * Configuración de variables de entorno
+           * Generado automáticamente por GitHub Actions
+           */
+          window.ENV = {
+            API_BASE: '${{ secrets.API_BASE_URL }}',
+            ENVIRONMENT: 'production'
+          };
+          EOF
+          echo "✅ env.js creado con API_BASE desde secrets"
+
+      - name: Verify env.js
+        run: |
+          echo "Contenido de config/env.js:"
+          cat config/env.js
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

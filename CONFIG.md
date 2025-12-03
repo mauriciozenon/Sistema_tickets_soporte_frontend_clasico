@@ -36,7 +36,22 @@ Este proyecto usa un sistema de configuración basado en archivos JavaScript par
 - ⚠️ El archivo `config/env.js` **NO se sube a Git** (está en `.gitignore`)
 - ✅ El archivo `config/env.example.js` **SÍ se sube a Git** como plantilla
 - 🔧 Cada desarrollador debe crear su propio `config/env.js` local
-- 🌐 Para GitHub Pages, debes crear `config/env.js` con la configuración de producción antes de desplegar
+- 🌐 Para GitHub Pages, usa GitHub Actions para inyectar secrets automáticamente
+
+## 🚀 Deployment a GitHub Pages
+
+**¡Usa GitHub Actions para inyectar secrets automáticamente!**
+
+En lugar de crear `config/env.js` manualmente, configura GitHub Actions:
+
+1. **Agrega tu API URL como secret en GitHub:**
+   - Settings → Secrets and variables → Actions
+   - New repository secret: `API_BASE_URL`
+   - Valor: `https://tu-api-produccion.com/api`
+
+2. **GitHub Actions generará `env.js` automáticamente** en cada deployment
+
+📖 **Ver [DEPLOYMENT.md](DEPLOYMENT.md) para instrucciones completas**
 
 ## 🛠️ Agregar Nuevas Variables
 
