@@ -28,22 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const data = await postAsync('usuarios', { nombre, email, password, rol });
+        await postAsync('usuarios', { nombre, email, password, rol });
 
-        if (data.error || !data.usuario) {
-          errorMsg.textContent = data.mensaje || 'Error al registrar.';
-          return;
-        }
+        localStorage.setItem('email_verificacion', email);
 
-        // Guardar usuario en localStorage (opcional)
-        localStorage.setItem('usuario', JSON.stringify(data.usuario));
-
-        window.location.href = data.usuario.rol === 'administrador'
-          ? './dashboard.html'
-          : './cliente/dashboard-cliente.html';
+        window.location.href = '../components/verificar-email.html';
       } catch (err) {
         console.error('Error de red:', err);
-        errorMsg.textContent = 'No se pudo conectar con el servidor.';
+        errorMsg.textContent = err.message || 'No se pudo conectar con el servidor.';
       }
     });
   }
