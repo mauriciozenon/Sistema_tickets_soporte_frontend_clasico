@@ -9,7 +9,7 @@ const btnNuevoTicket = document.getElementById('btn-nuevo-ticket');
 const usuario = JSON.parse(localStorage.getItem('usuario'));
 
 // Mostrar nombre
-if (usuario && usuario.nombre) {
+if (usuario && usuario.nombre && usuarioNombre) {
   usuarioNombre.textContent = usuario.nombre;
 }
 
