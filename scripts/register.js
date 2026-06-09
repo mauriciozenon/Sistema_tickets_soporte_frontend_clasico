@@ -31,7 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await postAsync('usuarios', { nombre, email, password, rol });
 
         if (data.error || !data.usuario) {
-          errorMsg.textContent = data.mensaje || 'Error al registrar.';
+          const msg = (data.mensaje || '').toLowerCase();
+          if (msg.includes('correo') || msg.includes('email') || msg.includes('registrad') || msg.includes('duplicad') || msg.includes('exist')) {
+            errorMsg.textContent = 'Este correo electrónico ya está registrado. Intentá con otro.';
+          } else {
+            errorMsg.textContent = data.mensaje || 'Error al registrar.';
+          }
           return;
         }
 

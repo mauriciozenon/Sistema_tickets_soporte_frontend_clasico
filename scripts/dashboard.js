@@ -259,6 +259,7 @@ async function getTicketDetails(idTicket) {
 // Abrir modal
 $(document).on('click', '#btnRegistrarUsuario', function () {
   $('#formRegistroAdmin')[0].reset();
+  $('#regError').addClass('hidden').text('');
   $('#modal-registro-admin').fadeIn();
 });
 
@@ -285,7 +286,13 @@ $('#formRegistroAdmin').on('submit', async function (e) {
     const data = await postAsync('usuarios', { nombre, email, password, rol });
 
     if (data.error || !data.usuario) {
-      alert(data.mensaje || 'Error al registrar usuario.');
+      const msg = (data.mensaje || '').toLowerCase();
+      const regError = $('#regError');
+      if (msg.includes('correo') || msg.includes('email') || msg.includes('registrad') || msg.includes('duplicad') || msg.includes('exist')) {
+        regError.text('Este correo electrónico ya está registrado. Intentá con otro.').removeClass('hidden');
+      } else {
+        alert(data.mensaje || 'Error al registrar usuario.');
+      }
       return;
     }
 
