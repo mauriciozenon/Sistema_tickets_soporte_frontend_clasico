@@ -30,9 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         await postAsync('usuarios', { nombre, email, password, rol });
 
-        localStorage.setItem('email_verificacion', email);
-
-        window.location.href = '../components/verificar-email.html';
+        window.location.href = 'index.html';
       } catch (err) {
         console.error('Error de red:', err);
         errorMsg.textContent = err.message || 'No se pudo conectar con el servidor.';
