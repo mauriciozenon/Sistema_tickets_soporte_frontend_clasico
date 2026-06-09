@@ -26,7 +26,7 @@
   margin-top: 0;
   margin-bottom: 1.5rem;
   color: var(--color-indigo-900);
-  border-bottom: 2px solid #eef2ff;
+  border-bottom: 2px solid #dbeafe;
   padding-bottom: 0.75rem;
 }
 
@@ -334,8 +334,8 @@
 }
 
 .input-group input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  border-color: #1e40af;
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
 }
 
 .custom-select {
@@ -353,8 +353,8 @@
 }
 
 .custom-select:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  border-color: #1e40af;
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
 }
 
 .register-button {
@@ -369,11 +369,11 @@
   align-items: center;
   justify-content: center;
   transition: background 0.2s;
-  background: linear-gradient(to right, #4f46e5, #9333ea);
+  background: linear-gradient(to right, #1e40af, #2563eb);
   margin-top: 0 !important;
   /* Override modal button margin */
 }
 
 .register-button:hover {
-  background: linear-gradient(to right, #4338ca, #7e22ce);
+  background: linear-gradient(to right, #1e3a8a, #1d4ed8);
 }

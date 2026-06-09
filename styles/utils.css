@@ -91,11 +91,11 @@
 
 /* Variables de color de Tailwind replicadas */
 :root {
-  --color-indigo-600: #4f46e5;
-  --color-purple-600: #9333ea;
-  --color-pink-500: #ec4899;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-900: #1e1b4b;
+  --color-indigo-600: #1e40af;
+  --color-purple-600: #1e3a5f;
+  --color-pink-500: #0f172a;
+  --color-indigo-100: #dbeafe;
+  --color-indigo-900: #1e293b;
 
   /* Fondos de estadísticas */
   --bg-total: #f1f5f9;
@@ -166,7 +166,7 @@ body {
 
 #btnCrearTicket:hover,
 .btn.enviar:hover {
-  background: linear-gradient(to right, #4338ca, #7e22ce);
+  background: linear-gradient(to right, #1e3a8a, #1d4ed8);
 }
 
 /* Botones de acción de tabla (Editar, Iniciar, etc.) */

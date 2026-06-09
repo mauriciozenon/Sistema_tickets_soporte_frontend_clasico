@@ -344,8 +344,7 @@ header h1 {
 }
 
 .btn:hover {
-  /* Cambio de degradado para hover replicando: hover:from-indigo-700 hover:to-purple-700 */
-  background: linear-gradient(to right, #4338ca, #7e22ce);
+  background: linear-gradient(to right, #1e3a8a, #1d4ed8);
 }
 
 /* ============================================
