@@ -35,6 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         localStorage.setItem('usuario', JSON.stringify(usuario));
 
+        if (data.verificado === false) {
+          localStorage.setItem('email_verificacion', email);
+          showToast('Tu email aún no fue verificado. Revisá tu correo.', 'error');
+          setTimeout(() => {
+            window.location.href = './components/verificar-email.html';
+          }, 1500);
+          return;
+        }
+
         window.location.href = usuario.rol === 'administrador'
           ? './components/dashboard.html'
           : './components/cliente/dashboard-cliente.html';

@@ -289,8 +289,9 @@ $('#formRegistroAdmin').on('submit', async function (e) {
       return;
     }
 
+    localStorage.setItem('email_verificacion', email);
     $('#modal-registro-admin').fadeOut();
-    showToast('Usuario registrado con éxito', 'success');
+    showToast('Usuario registrado. Se envió un código de verificación a su correo.', 'success');
   } catch (err) {
     console.error(err);
     alert('Error al conectar con el servidor.');

@@ -1,5 +1,3 @@
-const API_BASE = 'http://localhost:3000/api';
-
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('verificarForm');
   const errorMsg = document.getElementById('error');
@@ -27,20 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/auth/verificar-codigo`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, codigo })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        errorMsg.textContent = data.error || 'Error al verificar.';
-        errorMsg.classList.remove('hidden');
-        showToast(data.error || 'Error al verificar', 'error');
-        return;
-      }
+      const data = await postAsync('auth/verificar-codigo', { email, codigo });
 
       localStorage.removeItem('email_verificacion');
       showToast('Cuenta verificada correctamente', 'success');
@@ -50,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (err) {
       console.error('Error de red:', err);
-      errorMsg.textContent = 'No se pudo conectar con el servidor.';
+      const msg = err.message || 'No se pudo conectar con el servidor.';
+      errorMsg.textContent = msg;
       errorMsg.classList.remove('hidden');
+      showToast(msg, 'error');
     }
   });
 
@@ -67,20 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     reenviarBtn.textContent = 'Enviando...';
 
     try {
-      const res = await fetch(`${API_BASE}/auth/enviar-codigo`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        errorMsg.textContent = data.error || 'Error al reenviar.';
-        errorMsg.classList.remove('hidden');
-        showToast(data.error || 'Error al reenviar', 'error');
-        return;
-      }
+      await postAsync('auth/enviar-codigo', { email });
 
       showToast('Código reenviado. Revisá tu correo.', 'success');
 
@@ -98,8 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (err) {
       console.error('Error de red:', err);
-      errorMsg.textContent = 'No se pudo conectar con el servidor.';
+      const msg = err.message || 'No se pudo conectar con el servidor.';
+      errorMsg.textContent = msg;
       errorMsg.classList.remove('hidden');
+      showToast(msg, 'error');
       reenviarBtn.disabled = false;
       reenviarBtn.textContent = 'Reenviar código';
     }
