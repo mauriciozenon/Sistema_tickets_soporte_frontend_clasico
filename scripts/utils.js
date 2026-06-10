@@ -19,6 +19,26 @@ function showToast(message, type = 'info') {
   }, 3000);
 }
 
+function initPasswordToggles() {
+  document.querySelectorAll('.password-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrapper = btn.closest('.password-wrapper');
+      const input = wrapper.querySelector('input');
+      const icon = btn.querySelector('i');
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+  });
+}
+
+initPasswordToggles();
+
 async function construirFiltros(entidad) {
   let filtros = {};   // <--- OBJETO, no string
 

@@ -21,17 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (e) => {
       console.log('Form submitted');
       e.preventDefault();
-      if (errorEl) errorEl.textContent = ''; // Limpiar errores anteriores
+      if (errorEl) errorEl.textContent = '';
 
+      const loader = document.getElementById('loader');
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
 
       try {
         console.log('Calling postAsync');
+        if (loader) loader.classList.add('active');
         const data = await postAsync('auth/login', { email, password });
-        console.log('Response:', data);
+        
 
         if (data.error) {
+          if (loader) loader.classList.remove('active');
           showToast(data.mensaje || 'Credenciales inválidas', 'error');
           return;
         }
@@ -52,8 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
           : './components/cliente/dashboard-cliente.html';
 
       } catch (err) {
-        console.error('Error de red o servidor:', err);
+        if (loader) loader.classList.remove('active');
+        // console.error('Error de red o servidor:', err);
         if (errorEl) errorEl.textContent = err.message || 'No se pudo conectar con el servidor.';
+        showToast(err.message);
       }
     });
   } else {
