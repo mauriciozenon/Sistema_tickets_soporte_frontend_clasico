@@ -22,10 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const nombre = document.getElementById('nombre').value.trim();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const rol = 'administrador'; // Hardcoded for security
+      const rol = 'cliente'; // Hardcoded for security
 
       if (!nombre || !email || !password) {
         errorMsg.textContent = 'Completá todos los campos.';
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        errorMsg.textContent = 'Ingresá un correo electrónico válido.';
         return;
       }
 
