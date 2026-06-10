@@ -11,7 +11,7 @@
 header {
   /* bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white shadow-lg */
   background: linear-gradient(to right, var(--color-green-900), #0f2d1f, #111827);
-  color: black;
+  color: white;
   box-shadow: var(--shadow-lg);
   padding: 1.5rem 1rem;
   display: flex;
@@ -39,31 +39,31 @@ header h1 {
 
 .user-info span:first-of-type {
   /* Bienvenido, {user.fullName} */
-  color: black;
+  color: #d1fae5;
   font-size: 0.9rem;
 }
 
 .user-info strong {
-  color: black;
+  color: white;
   font-weight: 700;
 }
 
 #rol-usuario {
   /* Rol badge: px-2 py-1 bg-white/20 rounded text-sm */
   padding: 0.25rem 0.5rem;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 0.25rem;
   font-size: 0.75rem;
-  color: black;
+  color: white;
   margin-left: 0.5rem !important;
 }
 
 .cerrar {
   /* Botón de Cerrar Sesión: bg-white/10 border-white/30 text-white hover:bg-white/20 */
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  background-color: rgba(0, 0, 0, 0.05);
-  color: black;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   transition: all 0.2s;
@@ -71,7 +71,7 @@ header h1 {
 }
 
 .cerrar:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /*
