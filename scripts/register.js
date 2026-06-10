@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const rol = 'cliente'; // Hardcoded for security
 
       if (!nombre || !email || !password) {
-        errorMsg.textContent = 'Completá todos los campos.';
+        showToast('Completá todos los campos.');
         return;
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        errorMsg.textContent = 'Ingresá un correo electrónico válido.';
+        showToast('Ingresá un correo electrónico válido.');
         return;
       }
 
@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
           if (loader) loader.classList.remove('active');
           const msg = (data.mensaje || '').toLowerCase();
           if (msg.includes('correo') || msg.includes('email') || msg.includes('registrad') || msg.includes('duplicad') || msg.includes('exist')) {
-            errorMsg.textContent = 'Este correo electrónico ya está registrado. Intentá con otro.';
+            showToast('Este correo electrónico ya está registrado. Intentá con otro.');
           } else {
-            errorMsg.textContent = data.mensaje || 'Error al registrar.';
+            showToast(data.mensaje || 'Error al registrar.');
           }
           return;
         }
