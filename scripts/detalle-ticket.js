@@ -262,22 +262,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listeners
   const chatForm = document.getElementById('chat-form');
   const messageInput = document.getElementById('message-input');
+  const btnSend = document.getElementById('btn-send');
 
-  // Formulario de chat
-  chatForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  async function handleSubmit() {
     const texto = messageInput.value.trim();
-    if (texto) {
-      const btnSend = document.getElementById('btn-send');
-      btnSend.disabled = true;
-      btnSend.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+    if (!texto) return;
+    if (btnSend.disabled) return;
 
-      await enviarMensaje(texto);
+    btnSend.disabled = true;
+    btnSend.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
 
-      btnSend.disabled = false;
-      btnSend.innerHTML = '<i class="bi bi-send-fill"></i> Enviar Mensaje';
-    }
-  });
+    await enviarMensaje(texto);
+
+    btnSend.disabled = false;
+    btnSend.innerHTML = '<i class="bi bi-send-fill"></i> Enviar Mensaje';
+  }
+
+  // Click en botón enviar
+  btnSend.addEventListener('click', handleSubmit);
 
   // Contador de caracteres
   messageInput.addEventListener('input', actualizarContadorCaracteres);
@@ -286,17 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
   messageInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      e.stopPropagation();
-      const texto = messageInput.value.trim();
-      if (texto) {
-        const btnSend = document.getElementById('btn-send');
-        btnSend.disabled = true;
-        btnSend.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
-        enviarMensaje(texto).then(() => {
-          btnSend.disabled = false;
-          btnSend.innerHTML = '<i class="bi bi-send-fill"></i> Enviar Mensaje';
-        });
-      }
+      handleSubmit();
     }
   });
 });
