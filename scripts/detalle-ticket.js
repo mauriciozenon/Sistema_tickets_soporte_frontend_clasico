@@ -286,7 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
   messageInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      chatForm.dispatchEvent(new Event('submit'));
+      // chatForm.dispatchEvent(new Event('submit'));
+      chatForm.requestSubmit();
     }
   });
 });
