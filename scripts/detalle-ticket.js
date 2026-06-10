@@ -286,8 +286,17 @@ document.addEventListener('DOMContentLoaded', () => {
   messageInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      // chatForm.dispatchEvent(new Event('submit'));
-      chatForm.requestSubmit();
+      e.stopPropagation();
+      const texto = messageInput.value.trim();
+      if (texto) {
+        const btnSend = document.getElementById('btn-send');
+        btnSend.disabled = true;
+        btnSend.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+        enviarMensaje(texto).then(() => {
+          btnSend.disabled = false;
+          btnSend.innerHTML = '<i class="bi bi-send-fill"></i> Enviar Mensaje';
+        });
+      }
     }
   });
 });
